@@ -7,11 +7,35 @@
   margin-top: 0;
 }
 
+.row {
+  margin-bottom: 0;
+}
+
+.chat-preview-cursor {
+  cursor: pointer;
+}
+
+.collection-item:hover {
+  background-color: rgb(242, 242, 242);
+}
+
 .gray-text {
   color: rgba(116, 116, 116, 0.87);
   line-height: 0;
-  font-weight: 600;
-  font-size: 13px;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.header-logo {
+  font-family: 'Shadows Into Light', cursive; 
+  font-weight: 600; 
+  font-size: 1.7em;
+  color: white;
+  font-style: normal;
+}
+
+.header.gray-text {
+  color: #b2dfdb;
 }
 
 .new-msg-text {
@@ -27,8 +51,13 @@
 }
 
 .main-text {
-  font-size: 1.06em;
-  font-weight: 700;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.header.main-text {
+  line-height: 0.8em;
+  color: white;
 }
 
 .msg-count {
@@ -54,10 +83,14 @@
 
 .сhats-container {
   width: 300px;
-  height: 700px;
+  height: 720px;
   overflow-y: scroll;
-  scrollbar-color: #eceff1 gray;
   scrollbar-width: thin;
+  scrollbar-color: white white;
+}
+
+.сhats-container:hover {
+  scrollbar-color: #eceff1 gray;
 }
 
 .messages-container {
@@ -68,9 +101,12 @@
   display: flex;
   position: relative;
   overflow-y: scroll;
-  background-color: #fafafa;
-  scrollbar-color: #eceff1 gray;
   scrollbar-width: thin;
+  scrollbar-color: white white;
+}
+
+.messages-container:hover {
+  scrollbar-color: #eceff1 gray;
 }
 
 .message-box {
@@ -156,7 +192,7 @@
 .mine .message {
   color: white;
   margin-left: 25%;
-  background: #00897b;
+  background: teal;
   background-attachment: fixed;
   position: relative;
 }
@@ -169,7 +205,7 @@
   right: -8px;
   height: 20px;
   width: 20px;
-  background: #00897b;
+  background: teal;
   background-attachment: fixed;
   border-bottom-left-radius: 15px;
 }

@@ -1,18 +1,19 @@
 import React from 'react';
-import { TextInputElement, ButtonElement } from './inputs'
+import { SwitchElement, FileUploadElement, TextInputElement, ButtonElement } from './inputs'
 
-export default function SignInForm (props) {
+export default function SignUpForm (props) {
     return (
         <div class="section">
             <div className="row" style={{textAlign:'center'}}>
-                <TextInputElement
-                    m="8"
-                    icon="email"
-                    email
-                    validate
-                    label="Email"
-                    error="Wrong format"
-                    success="Nice!"
+                <SwitchElement offLabel='Male' onLabel='Female' style={{width: '100%'}}/>
+                <TextInputElement m='8' icon='face' label='Your name' />
+                <TextInputElement m='8' 
+                    icon='email' 
+                    label='Email' 
+                    email 
+                    validate 
+                    error="Wrong format" 
+                    success="Nice!" 
                 />
                 <TextInputElement 
                     m="8" 
@@ -20,23 +21,25 @@ export default function SignInForm (props) {
                     password 
                     label="Password" 
                 />
-                <ButtonElement
+                <FileUploadElement 
+                    text="Profile picture"
+                />
+                <ButtonElement 
                     m="8"
                     node="a"
                     waves="teal"
                     large
                     style={{backgroundColor: '#ee6e73', width: '100%'}}
-                    text='Sign In'
+                    text='SIGN UP'
                 />
-                    
-                <ButtonElement
+                <ButtonElement 
                     m="8"
                     node="a"
                     waves="teal"
                     large
                     style={{backgroundColor: '#485167', width: '100%'}}
                     onClick={props.onFormSwitch}
-                    text="Doesn't have an account? Sign up"
+                    text='Already have an account? Sign in'
                 />
             </div>
         </div>

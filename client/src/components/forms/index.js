@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../css/forms.css'
-import SignUpForm from './sign-up'
-import SignInForm from './sign-in'
+import SignUpForm from './signUp'
+import { SignInForm } from './signIn'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { switchForm } from '../../redux/actions'
@@ -10,7 +10,6 @@ class FormContainer extends React.Component {
     onFormSwitch () {
         const reversedIsSignUp = !this.props.isSignUp;
         this.props.switchForm(reversedIsSignUp);
-        //store.dispatch({ type: 'CHANGE_FORM', isSignUp: reversedIsSignUp});
     }
 
     render () {

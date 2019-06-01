@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Button, TextInput } from 'react-materialize'
+import { Switch, Button, Icon, TextInput } from 'react-materialize'
 
 export const SwitchElement = (props) => {
     return (
@@ -12,6 +12,21 @@ export const SwitchElement = (props) => {
         </div>
     );
 }
+
+export const FileUploadElement = (props) => {
+    return (
+        <div class="file-field input-field col offset-s3 s6">
+            <div class="btn">
+                <span><Icon>cloud_upload</Icon> {props.text}</span>
+                <input type="file" style={{width: "1500px"}}/>
+            </div>
+            <div class="file-path-wrapper" style={{width: "395px"}}>
+                <input class="file-path validate" type="text" />
+            </div>
+        </div>
+    );
+}
+
 
 export const TextInputElement = (props) => {
     return (
@@ -41,6 +56,7 @@ export const ButtonElement = (props) => {
                 large={props.large}
                 style={props.style}
                 onClick={props.onClick}
+                icon={props.icon}
             >
                 {props.text}
             </Button>

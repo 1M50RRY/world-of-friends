@@ -7,45 +7,37 @@ import ChatPreview from './chat-preview'
 import { Collection, Col } from 'react-materialize'
 
 class ChatList extends React.Component {
+    isChatSelected ( chatId ) {
+        return chatId === this.props.selectedChatId;
+    }
+
+    renderChats () {
+        if(this.props.chats.length)
+        {
+            return this.props.chats.map(chat =>
+                <ChatPreview
+                    isChatSelected={this.isChatSelected(chat.id)}
+                    onSelect={() => this.props.onSelect(chat.id)}
+                    key={chat.id} 
+                    avatar={chat.avatar}
+                    name={chat.name}
+                    lastMessageText={chat.lastMessages[chat.lastMessages.length - 1].content}
+                    isMyMessageLast={chat.lastMessages[chat.lastMessages.length - 1].isMine}
+                    lastMessageTime={chat.lastMessages[chat.lastMessages.length - 1].time}
+                    checked={chat.lastMessages[chat.lastMessages.length - 1].isRead}
+                    unreadMessages={chat.unreadMessages}
+                />
+            );
+        }
+    }
+
     render() {
         return (
             <Col m={3} style={{ height: '100%', borderRight: '2px solid #E9EBED' }}>
                 <SearchChats />
                 <div className="сhats-container">
                     <Collection>
-                        <ChatPreview
-                            id={1}
-                            key={1} 
-                            avatar="https://materializecss.com/images/yuna.jpg"
-                            name="Anna"
-                            lastMessageText="So what do you think about last premiere?"
-                            isMyMessageLast={false}
-                            lastMessageTime="14:43"
-                            checked={false}
-                            unreadMessages={4}
-                        />
-                        <ChatPreview 
-                            id={2}
-                            key={2} 
-                            avatar="https://materializecss.com/images/yuna.jpg"
-                            name="Julia"
-                            lastMessageText="What's up?"
-                            isMyMessageLast={true}
-                            lastMessageTime="14:43"
-                            checked={true}
-                            unreadMessages={null}
-                        />
-                        <ChatPreview
-                            id={3}
-                            key={3}  
-                            avatar="https://materializecss.com/images/yuna.jpg"
-                            name="Elizabeth"
-                            lastMessageText="What's up?"
-                            isMyMessageLast={true}
-                            lastMessageTime="14:43"
-                            checked={false}
-                            unreadMessages={null}
-                        />
+                        {this.renderChats()}
                     </Collection>
                 </div>
             </Col>

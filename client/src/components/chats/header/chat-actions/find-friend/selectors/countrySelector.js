@@ -1,21 +1,17 @@
 import React from 'react';
 import '../../../../../../css/chats.css'
+import { countries, countryData } from '../../../../../../data'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Select } from 'react-materialize'
+import { Autocomplete } from 'react-materialize'
 
 
-const CountrySelector = (props) => {
-    return (
-        <Select value="" icon="flag">
-            <option value="" disabled>
-                Country
-                </option>
-            <option value="3">
-                Doesn't matter
-                </option>
-        </Select>
-    );
+class CountrySelector extends React.Component {
+    render() {
+        return (
+            <Autocomplete options={{data: countryData}} placeholder="Country" icon="flag" />
+        );
+    }
 }
 
 export default CountrySelector;

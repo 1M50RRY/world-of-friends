@@ -12,13 +12,19 @@ const Interlocutor = (props) => {
     return (
         <React.Fragment>
             <Col m={1}>
-                    <img src="https://www.countryflags.io/be/shiny/64.png" />
-                </Col>
+                {props.country ? <CountryFlag country={props.country} /> : null}
+            </Col>
             <Col m={2}>
-                <p className="main-text header"><b>Julia</b></p>
-                <p className="gray-text header">last seen yesterday at 15:43</p>
+                <p className="main-text header"><b>{props.name}</b></p>
+                <p className="gray-text header">{props.lastSeen}</p>
             </Col>
         </React.Fragment>
+    );
+}
+
+const CountryFlag = (props) => {
+    return (
+        <img src={`https://www.countryflags.io/${props.country}/shiny/64.png`} alt={props.country}/>
     );
 }
 

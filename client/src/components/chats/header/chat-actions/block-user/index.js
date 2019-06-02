@@ -1,24 +1,20 @@
 import React from 'react';
 import '../../../../../css/chats.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import { Button } from 'react-materialize'
-import { blockUser } from '../../../../../redux/actions'
 
 class BlockUser extends React.Component {
 
     onUserBlock () {
-        const reversedIsUserBlocked = !this.props.isUserBlocked;
-        this.props.blockUser(reversedIsUserBlocked);
+        this.props.onBlock(this.props.id, !this.props.isBlocked);
     }
     
     render () 
     {
-        let button = this.props.isUserBlocked ? 
+        let button = this.props.isBlocked ? 
                 <UnblockButton onClick={() => this.onUserBlock()} /> 
                 : 
                 <BlockButton onClick={() => this.onUserBlock()} />;
-        return button;
+        return this.props.id !== undefined ? button : null;
     }
 }
 
@@ -38,14 +34,4 @@ const UnblockButton = (props) => {
     );
 }
 
-function mapStateToProps (state) {
-    return {
-        isUserBlocked: state.users.isUserBlocked
-    }
-}
-
-function matchDispatchToProps (dispatch) {
-    return bindActionCreators({blockUser: blockUser}, dispatch);
-} 
-
-export default connect(mapStateToProps, matchDispatchToProps)(BlockUser);
+export default BlockUser;

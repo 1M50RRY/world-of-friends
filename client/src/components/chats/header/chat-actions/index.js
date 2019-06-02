@@ -11,7 +11,7 @@ const ChatActions = (props) => {
     return (
         <Col m={6} style={{ textAlign: 'right' }}>
             <FindFriend />
-            <BlockUser />
+            <BlockUser isBlocked={props.isBlocked} onBlock={props.onBlock} id={props.id} />
         </Col>
     );
 }

@@ -15,8 +15,8 @@ const FindFriend = (props) => {
             </Button>
         }>
             <Textarea icon="chat" label="Your message" />
-            <GenderSelector />
             <CountrySelector />
+            <GenderSelector />
             <Button className="teal" style={{ marginTop: '270px', width: '100%' }}>Send</Button>
         </Modal>
     );

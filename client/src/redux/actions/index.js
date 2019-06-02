@@ -18,3 +18,10 @@ export const selectChat = ( selectedChatId ) => {
         payload: selectedChatId
     }
 }
+
+export const updateChats = ( chats ) => {
+    return {
+        type: 'UPDATE_CHATS',
+        payload: chats
+    }
+}

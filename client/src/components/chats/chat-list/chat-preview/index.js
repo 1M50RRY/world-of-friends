@@ -5,7 +5,6 @@ import { MessagePreviewTextContent } from './components'
 
 export default class ChatPreview extends React.Component {
     chooseTextColor () {
-
         let messagePreviewColor = '';
         if (this.props.isMyMessageLast) messagePreviewColor = this.props.generateColor('transparent', 'transparent', '#cfd8dc', 'black');
         if(this.props.isChatSelected) messagePreviewColor = this.props.generateColor('transparent', 'transparent', 'white', 'white');
@@ -33,7 +32,7 @@ export default class ChatPreview extends React.Component {
                     lastMessageText={this.props.lastMessageText}
                     unreadMessages={this.props.unreadMessages}
                     checked={this.props.checked}
-                    lastMessageTime={this.props.LastMessageTime}
+                    lastMessageTime={this.props.lastMessageTime}
                     name={this.props.name}
                     generateColor={this.props.generateColor}
                 />

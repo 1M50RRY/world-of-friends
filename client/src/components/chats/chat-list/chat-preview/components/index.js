@@ -16,7 +16,7 @@ export const MessagePreviewTextContent = (props) => {
                 lastMessageText={props.lastMessageText}
                 generateColor={props.generateColor}
             />
-            <LastMessageTime isChatSelected={props.isChatSelected} lastMessageTime={props.LastMessageTime} generateColor={props.generateColor}/>
+            <LastMessageTime isChatSelected={props.isChatSelected} lastMessageTime={props.lastMessageTime} generateColor={props.generateColor}/>
             <SecondaryContent 
                 isChatSelected={props.isChatSelected}
                 isMyMessageLast={props.isMyMessageLast}

@@ -9,7 +9,11 @@ import { Col, Row } from 'react-materialize'
 const Header = (props) => {
     return (
         <Row style={{ backgroundColor: 'teal' }}>
-            <SideBar />
+            <SideBar 
+                onUserNameChange={props.onUserNameChange} 
+                onThemeChange={props.onThemeChange}
+                user={props.user}
+            />
             <Col m={2} style={{ marginTop: '15px' }}>
                 <a href="#" className="header-logo">World of Friends</a>
             </Col>

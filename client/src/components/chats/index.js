@@ -7,7 +7,12 @@ import ChatList from './chat-list'
 import { SendForm } from './send-form'
 import ChatBox from './chat-box'
 import { Row } from 'react-materialize'
-import { updateChats, selectChat, searchChats } from '../../redux/actions'
+import { updateChats, 
+    selectChat, 
+    searchChats, 
+    changeTheme, 
+    changeName, 
+    changeAvatar } from '../../redux/actions'
 
 class ChatContainer extends React.Component {  
     onSelect = ( chatId ) => {
@@ -38,6 +43,14 @@ class ChatContainer extends React.Component {
         }   
     }
 
+    onUserNameChange = ( value ) => {
+        this.props.changeName(value);
+    }
+
+    onThemeChange = ( value ) => {
+        this.props.changeTheme(value);
+    }
+
     onSearch = ( event ) => {
         this.props.searchChats(event.target.value);
     }
@@ -52,6 +65,9 @@ class ChatContainer extends React.Component {
                     lastSeen={this.getSelectedChat().lastSeen}
                     onBlock={this.onBlock}
                     isBlocked={this.getSelectedChat().isBlocked}
+                    onUserNameChange={this.onUserNameChange}
+                    onThemeChange={this.onThemeChange}
+                    user={this.props.user}
                 />
                 <Row>
                     <ChatList 
@@ -69,11 +85,13 @@ class ChatContainer extends React.Component {
     }
 }
 
+
 function mapStateToProps(state) {
     return {
         selectedChatId: state.chats.selectedChatId,
         chats: state.chats.chats,
-        query: state.chats.query
+        query: state.chats.query,
+        user: state.user
     }
 }
 
@@ -81,7 +99,10 @@ function matchDispatchToProps(dispatch) {
     return bindActionCreators({ 
         selectChat: selectChat,
         updateChats: updateChats,
-        searchChats: searchChats 
+        searchChats: searchChats,
+        changeName: changeName,
+        changeAvatar: changeAvatar,
+        changeTheme: changeTheme
     }, dispatch);
 }
 

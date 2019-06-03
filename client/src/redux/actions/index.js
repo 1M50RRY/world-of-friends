@@ -46,3 +46,10 @@ export const changeAvatar = ( avatar ) => {
         payload: avatar
     }
 }
+
+export const changeTheme = ( theme ) => {
+    return {
+        type: 'CHANGE_THEME',
+        payload: theme
+    }
+}

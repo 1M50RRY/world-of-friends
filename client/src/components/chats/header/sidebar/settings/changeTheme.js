@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../../../css/chats.css'
 import { SideNavItem, Switch } from 'react-materialize'
 
-export const ChangePassword = (props) => {
+export const ChangeTheme = (props) => {
     return (
         <React.Fragment>
             <SideNavItem>

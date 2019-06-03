@@ -15,6 +15,7 @@ class ChatList extends React.Component {
         if(this.props.chats.length)
         {
             return this.props.chats.map(chat =>
+                chat.name.includes(this.props.query) ? 
                 <ChatPreview
                     isChatSelected={this.isChatSelected(chat.id)}
                     onSelect={() => this.props.onSelect(chat.id)}
@@ -27,6 +28,8 @@ class ChatList extends React.Component {
                     checked={chat.lastMessages[chat.lastMessages.length - 1].isRead}
                     unreadMessages={chat.unreadMessages}
                 />
+                :
+                null
             );
         }
     }
@@ -34,7 +37,7 @@ class ChatList extends React.Component {
     render() {
         return (
             <Col m={3} style={{ height: '100%', borderRight: '2px solid #E9EBED' }}>
-                <SearchChats />
+                <SearchChats onSearch={this.props.onSearch} />
                 <div className="сhats-container">
                     <Collection>
                         {this.renderChats()}

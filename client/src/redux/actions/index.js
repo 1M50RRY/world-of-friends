@@ -25,3 +25,10 @@ export const updateChats = ( chats ) => {
         payload: chats
     }
 }
+
+export const searchChats = ( query ) => {
+    return {
+        type: 'SEARCH_CHATS',
+        payload: query
+    }
+}

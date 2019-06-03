@@ -7,10 +7,9 @@ import ChatList from './chat-list'
 import { SendForm } from './send-form'
 import ChatBox from './chat-box'
 import { Row } from 'react-materialize'
-import { updateChats, selectChat } from '../../redux/actions'
+import { updateChats, selectChat, searchChats } from '../../redux/actions'
 
 class ChatContainer extends React.Component {  
-
     onSelect = ( chatId ) => {
         this.props.selectChat(chatId);
         if (this.props.chats[chatId]) {
@@ -38,6 +37,10 @@ class ChatContainer extends React.Component {
             return def;
         }   
     }
+
+    onSearch = ( event ) => {
+        this.props.searchChats(event.target.value);
+    }
     
     render() {
         return (
@@ -55,6 +58,8 @@ class ChatContainer extends React.Component {
                         selectedChatId={this.props.selectedChatId} 
                         onSelect={this.onSelect}
                         chats={this.props.chats}
+                        query={this.props.query}
+                        onSearch={this.onSearch}
                     />
                     <ChatBox messages={this.getSelectedChat().lastMessages}/>
                 </Row>
@@ -67,14 +72,16 @@ class ChatContainer extends React.Component {
 function mapStateToProps(state) {
     return {
         selectedChatId: state.chats.selectedChatId,
-        chats: state.chats.chats
+        chats: state.chats.chats,
+        query: state.chats.query
     }
 }
 
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({ 
         selectChat: selectChat,
-        updateChats: updateChats 
+        updateChats: updateChats,
+        searchChats: searchChats 
     }, dispatch);
 }
 

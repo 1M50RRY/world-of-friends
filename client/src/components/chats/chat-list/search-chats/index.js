@@ -10,9 +10,8 @@ class SearchChats extends React.Component {
             <nav style={{ width: '294px', backgroundColor: '#F2F2F2', marginTop: '15px', marginBottom: '10px' }}>
                 <div class="nav-wrapper">
                     <div class="input-field">
-                        <input id="search" type="search" placeholder='Search' required />
+                        <input id="search" type="search" placeholder='Search' required onChange={this.props.onSearch}/>
                         <label class="label-icon" for="search"><i style={{ color: "black" }} class="material-icons">search</i></label>
-                        <i class="material-icons">close</i>
                     </div>
                 </div>
             </nav>

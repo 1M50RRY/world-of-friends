@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../css/chats.css'
-import SideBar from './settings'
+import SideBar from './sidebar'
 import Interlocutor from './interlocutor'
 import ChatActions from './chat-actions'
 import { Col, Row } from 'react-materialize'

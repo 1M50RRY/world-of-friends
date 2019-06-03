@@ -81,6 +81,7 @@ class ChatContainer extends React.Component {
                     onThemeChange={this.onThemeChange}
                     user={this.props.user}
                     generateColor={this.generateColor}
+                    
                 />
                 <Row>
                     <ChatList 

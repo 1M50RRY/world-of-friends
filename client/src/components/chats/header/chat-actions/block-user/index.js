@@ -10,11 +10,12 @@ class BlockUser extends React.Component {
     
     render () 
     {
+        console.log(this.props.isBlocked);
         let button = this.props.isBlocked ? 
                 <UnblockButton onClick={() => this.onUserBlock()} /> 
                 : 
                 <BlockButton onClick={() => this.onUserBlock()} />;
-        return this.props.id !== undefined ? button : null;
+        return this.props.id !== null ? button : null;
     }
 }
 

@@ -32,3 +32,17 @@ export const searchChats = ( query ) => {
         payload: query
     }
 }
+
+export const changeName = ( name ) => {
+    return {
+        type: 'CHANGE_NAME',
+        payload: name
+    }
+}
+
+export const changeAvatar = ( avatar ) => {
+    return {
+        type: 'CHANGE_AVATAR',
+        payload: avatar
+    }
+}

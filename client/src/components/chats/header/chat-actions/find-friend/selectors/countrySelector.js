@@ -9,7 +9,12 @@ import { Autocomplete } from 'react-materialize'
 class CountrySelector extends React.Component {
     render() {
         return (
-            <Autocomplete options={{data: countryData}} placeholder="Country" icon="flag" />
+            <Autocomplete 
+                options={{data: countryData}} 
+                placeholder="Country" 
+                icon="flag" 
+                style={this.props.generateColor('transparent', 'transparent', 'white', 'black')}
+            />
         );
     }
 }

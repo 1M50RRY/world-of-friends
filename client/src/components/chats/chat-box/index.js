@@ -13,12 +13,16 @@ class ChatBox extends React.Component {
             return this.props.messages.map(
                 (message) => 
                     <React.Fragment>
-                        {prevDate !== message.date && (prevDate = message.date) && <MessagesDate date={message.date} />}
+                        {
+                            prevDate !== message.date && (prevDate = message.date) && 
+                            <MessagesDate date={message.date} generateColor={this.props.generateColor} />
+                        }
                         <Message
                             key={message.id}
                             isMine={message.isMine}
                             messageContent={message.content}
                             messageTime={message.time}
+                            generateColor={this.props.generateColor}
                         />
                     </React.Fragment>      
             );
@@ -55,10 +59,21 @@ class ChatBox extends React.Component {
 
 const Message = (props) => {
     return (
-        <div class={props.isMine ? "mine messages" : "yours messages"} key={props.key}>
-            <div class="message last">
+        <div 
+            class={props.isMine ? "mine messages" : "yours messages"} 
+            key={props.key}
+        >
+            <div class="message" style={props.isMine ? 
+                props.generateColor('#263238', 'teal', 'white', 'white')
+                :
+                props.generateColor('#546e7a', '#00acc1', 'white', 'white')
+            }>
                 <span style={{ marginRight: '40px' }}>{props.messageContent}</span>
-                <span class={props.isMine ? "msg-time mine" : "msg-time yours"}>{props.messageTime}</span>
+                <span class={props.isMine ? "msg-time mine" : "msg-time yours"} style={props.isMine ? 
+                    props.generateColor('#263238', '#b2dfdb', '#b0bec5', 'white')
+                    :
+                    props.generateColor('#546e7a', '#b2ebf2', '#cfd8dc', 'white')
+                }>{props.messageTime}</span>
             </div>
         </div>
     );
@@ -67,7 +82,7 @@ const Message = (props) => {
 const MessagesDate = (props) => {
     return (
         <div className='msg-date'>
-            <Chip>{props.date}</Chip>
+            <Chip style={props.generateColor('#607d8b', '#e4e4e4', 'white', 'black')}>{props.date}</Chip>
         </div>
     );
 }

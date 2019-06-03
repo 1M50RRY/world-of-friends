@@ -20,7 +20,8 @@ class BlockUser extends React.Component {
 
 const BlockButton = (props) => {
     return (
-        <Button waves="light" onClick={props.onClick} className='red darken-1' style={{ marginTop: '13px', marginBottom: '20px' }}>
+        <Button waves="light" onClick={props.onClick} className='red darken-1' 
+            style={{ WebkitBoxShadow: 'none', boxShadow: 'none', marginTop: '13px', marginBottom: '20px' }}>
             BLOCK
         </Button>
     );
@@ -28,7 +29,8 @@ const BlockButton = (props) => {
 
 const UnblockButton = (props) => {
     return (
-        <Button waves="light" onClick={props.onClick} className='white' style={{ marginTop: '13px', marginBottom: '20px', color:'black' }}>
+        <Button waves="light" onClick={props.onClick} className='white' 
+            style={{ WebkitBoxShadow: 'none', boxShadow: 'none', marginTop: '13px', marginBottom: '20px', color:'black' }}>
             UNBLOCK
         </Button>
     );

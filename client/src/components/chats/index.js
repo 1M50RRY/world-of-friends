@@ -14,7 +14,12 @@ import { updateChats,
     changeName, 
     changeAvatar } from '../../redux/actions'
 
-class ChatContainer extends React.Component {  
+class ChatContainer extends React.Component {
+    componentDidMount () {
+        let style = this.props.user.theme ? 'color:white' : 'color:black';
+        document.getElementsByClassName('autocomplete')[0].setAttribute('style', style);
+    }
+    
     onSelect = ( chatId ) => {
         this.props.selectChat(chatId);
         if (this.props.chats[chatId]) {
@@ -43,12 +48,19 @@ class ChatContainer extends React.Component {
         }   
     }
 
+    generateColor = (darkBackground, lightBackground, darkText, lightText) => {
+        return this.props.user.theme ? 
+        {backgroundColor: darkBackground, color: darkText} 
+        : 
+        {backgroundColor: lightBackground, color: lightText}
+    }
+
     onUserNameChange = ( value ) => {
         this.props.changeName(value);
     }
 
-    onThemeChange = ( value ) => {
-        this.props.changeTheme(value);
+    onThemeChange = () => {
+        this.props.changeTheme(!this.props.user.theme);
     }
 
     onSearch = ( event ) => {
@@ -57,7 +69,7 @@ class ChatContainer extends React.Component {
     
     render() {
         return (
-            <div className="container" style={{backgroundColor: 'white'}}>
+            <div className="container" style={this.generateColor('#37474f', 'white', 'white', 'white')}>
                 <Header 
                     id={this.getSelectedChat().id}
                     name={this.getSelectedChat().name}
@@ -68,6 +80,7 @@ class ChatContainer extends React.Component {
                     onUserNameChange={this.onUserNameChange}
                     onThemeChange={this.onThemeChange}
                     user={this.props.user}
+                    generateColor={this.generateColor}
                 />
                 <Row>
                     <ChatList 
@@ -76,15 +89,18 @@ class ChatContainer extends React.Component {
                         chats={this.props.chats}
                         query={this.props.query}
                         onSearch={this.onSearch}
+                        generateColor={this.generateColor}
                     />
-                    <ChatBox messages={this.getSelectedChat().lastMessages}/>
+                    <ChatBox 
+                        messages={this.getSelectedChat().lastMessages} 
+                        generateColor={this.generateColor} 
+                    />
                 </Row>
-                <SendForm />
+                <SendForm generateColor={this.generateColor} />
             </div>
         );
     }
 }
-
 
 function mapStateToProps(state) {
     return {

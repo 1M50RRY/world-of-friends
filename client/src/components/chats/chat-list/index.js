@@ -27,6 +27,7 @@ class ChatList extends React.Component {
                     lastMessageTime={chat.lastMessages[chat.lastMessages.length - 1].time}
                     checked={chat.lastMessages[chat.lastMessages.length - 1].isRead}
                     unreadMessages={chat.unreadMessages}
+                    generateColor={this.props.generateColor}
                 />
                 :
                 null
@@ -37,7 +38,7 @@ class ChatList extends React.Component {
     render() {
         return (
             <Col m={3} style={{ height: '100%', borderRight: '2px solid #E9EBED' }}>
-                <SearchChats onSearch={this.props.onSearch} />
+                <SearchChats onSearch={this.props.onSearch} generateColor={this.props.generateColor} />
                 <div className="сhats-container">
                     <Collection>
                         {this.renderChats()}

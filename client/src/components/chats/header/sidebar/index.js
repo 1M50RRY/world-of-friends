@@ -7,13 +7,22 @@ export default class SideBar extends React.Component {
     render() {
         return (
             <Col m={1} style={{ marginTop: '1.2em' }}>
-                <SideNav trigger={<Button icon='menu' />} options={{ closeOnClick: true }}>
-                    <SideNavItem userView style={{ backgroundColor: 'teal' }} user={{
+                <SideNav 
+                    trigger={<Button icon='menu' style={{backgroundColor: 'transparent', WebkitBoxShadow: 'none', boxShadow: 'none'}}/>} 
+                    options={{ closeOnClick: true }} 
+                    style={this.props.generateColor('#37474f', 'white', 'white', 'black')}
+                >
+                    <SideNavItem userView style={this.props.generateColor('#607d8b', 'teal', 'white', 'white')} 
+                    user={{
                         image: this.props.user.avatar,
                         name: this.props.user.name,
                         email: this.props.user.email
                     }} />
-                    <Settings onUserNameChange={this.props.onUserNameChange} onThemeChange={this.props.onThemeChange} />
+                    <Settings 
+                        onUserNameChange={this.props.onUserNameChange} 
+                        onThemeChange={this.props.onThemeChange} 
+                        theme={this.props.theme}
+                    />
                 </SideNav>
             </Col>
         );

@@ -6,7 +6,7 @@ export const ChangeTheme = (props) => {
     return (
         <React.Fragment>
             <SideNavItem>
-                <Switch offLabel="Light theme" onLabel="Dark theme" />
+                <Switch offLabel="Light theme" onLabel="Dark theme" onChange={props.onThemeChange}/>
             </SideNavItem>
             <SideNavItem divider />
         </React.Fragment>

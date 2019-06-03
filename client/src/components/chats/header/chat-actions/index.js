@@ -10,7 +10,7 @@ import { Col } from 'react-materialize'
 const ChatActions = (props) => {
     return (
         <Col m={6} style={{ textAlign: 'right' }}>
-            <FindFriend />
+            <FindFriend generateColor={props.generateColor} />
             <BlockUser isBlocked={props.isBlocked} onBlock={props.onBlock} id={props.id} />
         </Col>
     );

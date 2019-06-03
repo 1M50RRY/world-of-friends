@@ -1,12 +1,6 @@
 import React from 'react';
 import '../../../../css/chats.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {
-    SideNav, Select, Textarea, Modal, Switch, Chip, CollectionItem, Icon, Collection,
-    TextInput, NavItem, Navbar, Col, SideNavItem, Button, Row
-} from 'react-materialize'
-
+import { Col } from 'react-materialize'
 
 const Interlocutor = (props) => {
     return (
@@ -16,7 +10,12 @@ const Interlocutor = (props) => {
             </Col>
             <Col m={2}>
                 <p className="main-text header"><b>{props.name}</b></p>
-                <p className="gray-text header">{props.lastSeen}</p>
+                <p 
+                    className="gray-text header" 
+                    style={ props.generateColor('transparent', 'transparent', '#cfd8dc', '#b2dfdb' ) }
+                >
+                    {props.lastSeen}
+                </p>
             </Col>
         </React.Fragment>
     );

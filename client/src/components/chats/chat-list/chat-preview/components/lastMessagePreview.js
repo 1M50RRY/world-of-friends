@@ -6,13 +6,20 @@ export const LastMessagePreview = (props) => {
         <p>
             <br />
             { props.isMyMessageLast && 
-            <span className="new-msg-text" style={props.isChatSelected ? {color: 'white'} : {color: 'teal'}}>
+            <span 
+                className="new-msg-text" 
+                style={
+                    props.isChatSelected ? 
+                        props.generateColor('transparent', 'transparent', 'white', 'white')
+                        :
+                        props.generateColor('transparent', 'transparent', '#eceff1', 'teal')
+                }
+            >
                 You: 
             </span> }
             <span 
                 className={props.isMyMessageLast ? "def-msg-text" : "new-msg-text"} 
-                style={{color: props.color
-                }}
+                style={props.color}
             >
                 {' ' + props.lastMessageText.slice(0, 22).trim()}
                 {props.lastMessageText.length > 22 && '...'}

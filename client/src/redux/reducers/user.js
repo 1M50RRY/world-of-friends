@@ -2,7 +2,7 @@ export default function (state = {
     name: 'John Doe', 
     avatar: 'https://materializecss.com/images/yuna.jpg',
     email: 'johndoe@worldoffriends.com',
-    theme: 0
+    theme: true
     }, action) 
 {
     switch (action.type) {

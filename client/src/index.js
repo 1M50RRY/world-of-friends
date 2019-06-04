@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import FormContainer from './components/forms'
 import ChatContainer from './components/chats'
 import ErrorBoundary from './components/errorBoundary'
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 import './css/main.css'
 import { Provider } from 'react-redux'
-import { bindActionCreators } from 'redux'
+//import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import store from './redux'
 

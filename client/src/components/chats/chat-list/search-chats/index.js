@@ -1,8 +1,5 @@
 import React from 'react';
 import '../../../../css/chats.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { Chip, CollectionItem, Icon, Collection, Col } from 'react-materialize'
 
 class SearchChats extends React.Component {
     render() {

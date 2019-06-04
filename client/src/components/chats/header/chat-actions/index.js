@@ -1,7 +1,5 @@
 import React from 'react';
 import '../../../../css/chats.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import FindFriend from './find-friend'
 import BlockUser from './block-user'
 import { Col } from 'react-materialize'

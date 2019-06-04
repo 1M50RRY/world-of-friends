@@ -1,7 +1,5 @@
 import React from 'react';
 import '../../../../../css/chats.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import CountrySelector from './selectors/countrySelector'
 import GenderSelector from './selectors/genderSelector'
 import { Textarea, Modal, Button } from 'react-materialize'

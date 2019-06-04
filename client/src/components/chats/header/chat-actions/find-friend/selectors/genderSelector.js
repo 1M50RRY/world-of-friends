@@ -1,7 +1,5 @@
 import React from 'react';
 import '../../../../../../css/chats.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import { Checkbox } from 'react-materialize'
 
 

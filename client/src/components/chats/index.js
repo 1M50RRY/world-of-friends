@@ -94,7 +94,11 @@ class ChatContainer extends React.Component {
                         generateColor={this.generateColor} 
                     />
                 </Row>
-                {this.getSelectedChat().id !== null ? <SendForm generateColor={this.generateColor} /> : null}
+                { this.getSelectedChat().id !== null ? 
+                    <SendForm generateColor={this.generateColor} onMessageSend={this.onMessageSend}/> 
+                    : 
+                    null
+                }
             </div>
         );
     }

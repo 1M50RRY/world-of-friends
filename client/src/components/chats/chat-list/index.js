@@ -1,7 +1,5 @@
 import React from 'react';
 import '../../../css/chats.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import SearchChats from './search-chats'
 import ChatPreview from './chat-preview'
 import { Collection, Col } from 'react-materialize'

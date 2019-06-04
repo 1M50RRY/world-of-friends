@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../../css/chats.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import { Chip, Col } from 'react-materialize'
-import chats from '..';
 
 
 class ChatBox extends React.Component {

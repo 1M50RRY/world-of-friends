@@ -4,8 +4,11 @@ import { Textarea, Icon, Col, Button, Row } from 'react-materialize'
 
 export class SendForm extends React.Component {
     onButtonClicked = ( el ) => {
-        this.props.onMessageSend(document.getElementById(el.id).value);
-        document.getElementById(el.id).value = null;
+        let text = document.getElementById(el.id).value;
+        if (text.length) {
+            this.props.onMessageSend(text);
+            document.getElementById(el.id).value = null;
+        }
     }
 
     keyPress = ( el ) => {

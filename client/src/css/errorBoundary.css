@@ -40,6 +40,7 @@
     margin: 0px;
     font-weight: 900;
     position: absolute;
+    background: #80cbc4;
     left: 50%;
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);

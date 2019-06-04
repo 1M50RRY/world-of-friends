@@ -11,7 +11,12 @@ export class ChangeName extends React.Component {
                     Change name
                 </SideNavItem>
                 <SideNavItem waves>
-                    <input ref={(el) => this.nameTextField = el} type="text" class="validate" />
+                    <input 
+                        ref={(el) => this.nameTextField = el} 
+                        type="text" 
+                        class="validate" 
+                        style={this.props.generateColor('transparent', 'transparent', 'white', 'black')}
+                    />
                     <label for="first_name">New name</label>
                 </SideNavItem><br />
                 <SideNavItem waves>

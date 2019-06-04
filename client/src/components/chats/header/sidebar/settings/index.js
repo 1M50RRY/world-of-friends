@@ -9,8 +9,8 @@ export const Settings = (props) => {
     return (
         <React.Fragment>
             <ChangeTheme onThemeChange={props.onThemeChange} />
-            <ChangePassword />
-            <ChangeName onUserNameChange={props.onUserNameChange} />
+            <ChangePassword generateColor={props.generateColor} />
+            <ChangeName onUserNameChange={props.onUserNameChange} generateColor={props.generateColor} />
             <ChangeAvatar />
         </React.Fragment>
     );

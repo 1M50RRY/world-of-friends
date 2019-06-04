@@ -9,13 +9,13 @@ export const ChangePassword = (props) => {
                 Change password
             </SideNavItem>
             <SideNavItem waves>
-                <TextInput password label="Old password" />
+                <TextInput password label="Old password" style={props.generateColor('transparent', 'transparent', 'white', 'black')} />
             </SideNavItem> <br />
             <SideNavItem waves>
-                <TextInput password label="New password" />
+                <TextInput password label="New password" style={props.generateColor('transparent', 'transparent', 'white', 'black')} />
             </SideNavItem> <br />
             <SideNavItem waves>
-                <TextInput password label="Repeat new password" />
+                <TextInput password label="Repeat new password"style={props.generateColor('transparent', 'transparent', 'white', 'black')} />
             </SideNavItem> <br />
             <SideNavItem waves>
                 <Button className="teal">Submit</Button>

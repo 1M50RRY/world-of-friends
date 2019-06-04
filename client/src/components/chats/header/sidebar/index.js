@@ -21,7 +21,7 @@ export default class SideBar extends React.Component {
                     <Settings 
                         onUserNameChange={this.props.onUserNameChange} 
                         onThemeChange={this.props.onThemeChange} 
-                        theme={this.props.theme}
+                        generateColor={this.props.generateColor}
                     />
                 </SideNav>
             </Col>

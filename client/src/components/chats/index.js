@@ -59,6 +59,10 @@ class ChatContainer extends React.Component {
     onSearch = ( event ) => {
         this.props.searchChats(event.target.value);
     }
+
+    onMessageSend = ( event ) => {
+        
+    }
     
     render() {
         return (
@@ -90,7 +94,7 @@ class ChatContainer extends React.Component {
                         generateColor={this.generateColor} 
                     />
                 </Row>
-                <SendForm generateColor={this.generateColor} />
+                {this.getSelectedChat().id !== null ? <SendForm generateColor={this.generateColor} /> : null}
             </div>
         );
     }

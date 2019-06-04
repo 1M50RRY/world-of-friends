@@ -14,12 +14,7 @@ import { updateChats,
     changeName, 
     changeAvatar } from '../../redux/actions'
 
-class ChatContainer extends React.Component {
-    componentDidMount () {
-        let style = this.props.user.theme ? 'color:white' : 'color:black';
-        document.getElementsByClassName('autocomplete')[0].setAttribute('style', style);
-    }
-    
+class ChatContainer extends React.Component {   
     onSelect = ( chatId ) => {
         this.props.selectChat(chatId);
         if (this.props.chats[chatId]) {
@@ -61,6 +56,8 @@ class ChatContainer extends React.Component {
 
     onThemeChange = () => {
         this.props.changeTheme(!this.props.user.theme);
+        let style = this.props.user.theme ? 'color:black' : 'color:white';
+        document.getElementsByClassName('autocomplete')[0].setAttribute('style', style);
     }
 
     onSearch = ( event ) => {

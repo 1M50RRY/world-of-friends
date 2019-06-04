@@ -1,8 +1,6 @@
 import React from 'react';
 import '../../../../../../css/chats.css'
-import { countries, countryData } from '../../../../../../data'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { countryData } from '../../../../../../data'
 import { Autocomplete } from 'react-materialize'
 
 

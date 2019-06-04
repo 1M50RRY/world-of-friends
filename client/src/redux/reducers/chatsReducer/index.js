@@ -1,4 +1,4 @@
-import { getChats } from '../../data'
+import { getChats } from '../../../data'
 export default function (state = {selectedChatId: null, chats: getChats(), query: ''}, action) {
     switch (action.type) {
         case 'SELECT_CHAT': return { ...state, selectedChatId: action.payload };

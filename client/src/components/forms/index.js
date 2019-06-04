@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../css/forms.css'
-import SignUpForm from './signUp'
-import { SignInForm } from './signIn'
+import SignUpForm from './signUpForm'
+import { SignInForm } from './signInForm'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { switchForm } from '../../redux/actions'
+import { switchForm } from '../../redux/actions/formsActions'
 
 class FormContainer extends React.Component {
     onFormSwitch () {

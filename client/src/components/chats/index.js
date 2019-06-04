@@ -7,12 +7,8 @@ import ChatList from './chat-list'
 import { SendForm } from './send-form'
 import ChatBox from './chat-box'
 import { Row } from 'react-materialize'
-import { updateChats, 
-    selectChat, 
-    searchChats, 
-    changeTheme, 
-    changeName, 
-    changeAvatar } from '../../redux/actions'
+import { updateChats, selectChat, searchChats, } from '../../redux/actions/chatsActions'
+import { changeTheme, changeName, changeAvatar} from '../../redux/actions/userActions'
 
 class ChatContainer extends React.Component {   
     onSelect = ( chatId ) => {

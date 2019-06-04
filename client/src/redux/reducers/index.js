@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import  AuthReducer from './auth'
-import  FormsReducer from './forms'
-import  ChatsReducer from './chats'
-import  UserReducer from './user'
+import  AuthReducer from './authReducer'
+import  FormsReducer from './formsReducer'
+import  ChatsReducer from './chatsReducer'
+import  UserReducer from './userReducer'
 
 const allReducers = combineReducers({
     auth: AuthReducer,

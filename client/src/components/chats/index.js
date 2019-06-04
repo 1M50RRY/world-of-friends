@@ -60,8 +60,20 @@ class ChatContainer extends React.Component {
         this.props.searchChats(event.target.value);
     }
 
-    onMessageSend = ( event ) => {
-        
+    onMessageSend = ( text ) => {
+        let chats = this.props.chats.slice();
+        let date = new Date();
+        chats[this.props.selectedChatId].lastMessages.push(
+            {
+                //id: 1,
+                isMine: true,
+                date: date.toLocaleString('en-us', { month: 'long' }) + ' ' + date.getDate(),
+                time:  ("0" + date.getHours()).slice(-2)   + ":" + ("0" + date.getMinutes()).slice(-2),
+                isRead: false,
+                content: text
+            }
+        );
+        this.props.updateChats(chats);
     }
     
     render() {

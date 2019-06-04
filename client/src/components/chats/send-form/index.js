@@ -2,56 +2,63 @@ import React from 'react';
 import '../../../css/chats.css'
 import { Textarea, Icon, Col, Button, Row } from 'react-materialize'
 
-export const SendForm = (props) => {
-    return (
-        <Row>
-            <Col 
-                m={9} 
-                offset="m3" 
-                style={{ 
-                    borderLeft: '1px solid #E9EBED', 
-                    borderTop: '1px solid #E9EBED', 
-                    marginLeft: '319px', 
-                    marginTop: '-109px', 
-                    height: '50px' }}
-            >
-                <MessageText 
-                    areaColor={props.generateColor('transparent ', 'transparent', 'white', 'black')} 
-                    buttonColor={props.generateColor('transparent', 'transparent', 'white', 'teal')}    
-                />
-                <SendButton style={
-                    Object.assign(
-                        { float: 'left', marginTop: '30px' }, 
-                        props.generateColor('transparent', 'transparent', 'white', 'teal')
-                    )}    
-                />
-            </Col>
-        </Row>
-    );
-}
+export class SendForm extends React.Component {
+    onButtonClicked = ( el ) => {
+        console.log(el);
+        this.props.onMessageSend(document.getElementById(el.id).value);
+        document.getElementById(el.id).value = null;
+    }
 
-const MessageText = (props) => {
-    return (
-        <Textarea style={Object.assign({ width: '800px', height: '50px', marginTop:'20px' }, props.areaColor)}
-            icon={
-                <Button flat waves="light" style={
-                    Object.assign({ marginTop:'20px'}, props.buttonColor)}>
-                    <Icon>
-                        attach_file
-                    </Icon>
-                </Button>
-            }
-            placeholder="Write a message..."
-        />
-    );
-}
+    keyPress = ( el ) => {
+        if(el.keyCode === 13){
+            console.log(el);
+            this.onButtonClicked(el.target);
+            el.preventDefault();
+         }
+    }
 
-const SendButton = (props) => {
-    return (
-        <Button flat style={props.style} waves="light">
-            <Icon>
-                send
-            </Icon>
-        </Button>
-    );
+    render () {
+        return (
+            <Row>
+                <Col 
+                    m={9} 
+                    offset="m3" 
+                    style={{ 
+                        borderLeft: '1px solid #E9EBED', 
+                        borderTop: '1px solid #E9EBED', 
+                        marginLeft: '319px', 
+                        marginTop: '-109px', 
+                        height: '50px' }}
+                >
+                    <Textarea style={Object.assign({ width: '800px', height: '50px', marginTop:'20px' }, 
+                        this.props.generateColor('transparent ', 'transparent', 'white', 'black'))}
+                        icon={
+                            <Button flat waves="light" style={
+                                Object.assign({ marginTop:'20px'}, 
+                                    this.props.generateColor('transparent', 'transparent', 'white', 'teal'))}>
+                                <Icon>
+                                    attach_file
+                                </Icon>
+                            </Button>
+                        }
+                        placeholder="Write a message..."
+                        ref={(el) => this.messageText = el}
+                        onKeyDown={this.keyPress}
+                    />
+                    <Button 
+                        flat 
+                        style={Object.assign(
+                            { float: 'left', marginTop: '30px' }, 
+                            this.props.generateColor('transparent', 'transparent', 'white', 'teal')
+                        )} 
+                        waves="light" 
+                        onClick={() => this.onButtonClicked(this.messageText)}>
+                        <Icon>
+                            send
+                        </Icon>
+                    </Button>
+                </Col>
+            </Row>
+        );
+    } 
 }

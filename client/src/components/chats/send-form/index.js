@@ -4,14 +4,12 @@ import { Textarea, Icon, Col, Button, Row } from 'react-materialize'
 
 export class SendForm extends React.Component {
     onButtonClicked = ( el ) => {
-        console.log(el);
         this.props.onMessageSend(document.getElementById(el.id).value);
         document.getElementById(el.id).value = null;
     }
 
     keyPress = ( el ) => {
         if(el.keyCode === 13){
-            console.log(el);
             this.onButtonClicked(el.target);
             el.preventDefault();
          }

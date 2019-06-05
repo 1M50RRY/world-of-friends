@@ -6,3 +6,6 @@
   <img src="https://img.shields.io/badge/Cache-Redis-critical.svg">
   <img src="https://img.shields.io/badge/Mobile-React%20Native-informational.svg">
 </div>
+
+# Time spent
+- Front-end: 25 hours 44 minutes

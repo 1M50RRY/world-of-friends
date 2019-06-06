@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "acorn-dynamic-import": "^4.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
@@ -11,7 +12,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "webpack --mode production",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -31,6 +32,17 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^1.6.0"
+    "@babel/cli": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0-beta.40",
+    "acorn": "^6.1.1",
+    "babel-core": "^7.0.0-0",
+    "babel-plugin-lodash": "^3.3.2",
+    "babel-plugin-react-transform": "^3.0.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "prop-types": "^15.7.2",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.3.2"
   }
 }

@@ -9,4 +9,5 @@
 
 # Time spent
 <i>I was making everything totally from scratch, i've learnt React and Django REST mostly in developing process and refactored code many times.</i>
+- <b>Design:</b> 1 hour 4 minutes
 - <b>Front-end:</b> 25 hours 44 minutes

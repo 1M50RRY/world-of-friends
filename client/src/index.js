@@ -3,26 +3,44 @@ import ReactDOM from 'react-dom';
 import FormContainer from './components/forms'
 import ChatContainer from './components/chats'
 import ErrorBoundary from './components/errorBoundary'
-//import Cookies from 'js-cookie';
 import './css/main.css'
 import { Provider } from 'react-redux'
-//import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { setUser } from './redux/actions/userActions'
 import store from './redux'
+import axios from 'axios'
 
 class Container extends React.Component {
-
-    checkAuth () {
-        //let token = Cookies.get("something");
-        // Create request to backend
-        //store.dispatch({ type: 'CHANGE_AUTH', isAuthenticated: true });
+    onAuth = ( user ) => {
+        console.log(user);
+        if (user !== null)
+            this.props.setUser({
+                name: user.name, 
+                avatar: user.avatar,
+                email: user.email,
+                theme: user.theme
+            });
     }
-    
-    render () {
-        //const isAuthenticated = true;
+
+    checkAuth = () => {
+        axios.get('http://localhost:3000/users/get').then(response => {
+            console.log(response);
+            if (response.data.status === 'OK')
+                this.onAuth(Object.assign(response.data.user, response.data.userData))
+            else 
+                this.onAuth(null);
+        });
+    }
+
+    componentDidMount () {
+        this.checkAuth();
+    }
+
+    render() {
         return (
             <ErrorBoundary>
-                {this.props.isAuthenticated ? <ChatContainer /> : <FormContainer />}
+                {this.props.user.name === null ? <FormContainer onAuth={this.onAuth}/> : <ChatContainer user={this.props.user} />}
             </ErrorBoundary>
         );
     }
@@ -30,11 +48,15 @@ class Container extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        isAuthenticated: state.auth.isAuthenticated
+        user: state.user
     }
 }
 
-Container = connect(mapStateToProps)(Container);
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({ setUser: setUser }, dispatch);
+}
+
+Container = connect(mapStateToProps, matchDispatchToProps)(Container);
 
 // ========================================
 

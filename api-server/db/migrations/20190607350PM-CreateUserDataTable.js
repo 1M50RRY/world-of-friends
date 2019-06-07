@@ -33,7 +33,7 @@ module.exports = {
             },
             countryId: {
                 type: Sequelize.INTEGER,
-                references: {model: 'countries', key: 'id'}
+                allowNull: false
             }
         });
     },

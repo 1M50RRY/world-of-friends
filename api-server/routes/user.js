@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 let users = require('../controllers/user');
+let multer = require('../db/config/storage')
 
-router.get('/', users.get_users);
+router.post('/login', users.login);
 
-router.get('/id/:country_id', users.get_user)
+router.get('/get', users.get_user)
 
-router.post('/add', users.add_user);
+router.post('/add', multer.upload.single('avatar'), users.add_user);
 
 module.exports = router;

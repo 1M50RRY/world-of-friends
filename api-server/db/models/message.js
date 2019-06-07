@@ -7,12 +7,10 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true
         },
         chatId: {
-            type: DataTypes.INTEGER,
-            references: {model: 'chats', key: 'id'}
+            type: DataTypes.INTEGER
         },
         recipentId: {
-            type: DataTypes.INTEGER,
-            references: {model: 'users', key: 'id'}
+            type: DataTypes.INTEGER
         },
         date: DataTypes.STRING,
         time: DataTypes.STRING,

@@ -16,7 +16,11 @@ class FormContainer extends React.Component {
         return (
             <div className='container'>
                 <h1 className='name-logo'>World of Friends</h1>
-                { this.props.isSignUp ? <SignUpForm onFormSwitch={() => this.onFormSwitch()}/> : <SignInForm onFormSwitch={() => this.onFormSwitch()}/> }
+                { this.props.isSignUp ? 
+                    <SignUpForm onFormSwitch={() => this.onFormSwitch()} onAuth={this.props.onAuth}/> 
+                    : 
+                    <SignInForm onFormSwitch={() => this.onFormSwitch()} onAuth={this.props.onAuth}/> 
+                }
             </div>
         );
     }

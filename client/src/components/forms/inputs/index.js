@@ -8,6 +8,8 @@ export const SwitchElement = (props) => {
                 offLabel={props.offLabel} 
                 onLabel={props.onLabel} 
                 style={props.style}
+                name={props.name}
+                onChange={props.onChange}
             />
         </div>
     );
@@ -18,7 +20,7 @@ export const FileUploadElement = (props) => {
         <div class="file-field input-field col offset-s3 s6">
             <div class="btn">
                 <span><Icon>cloud_upload</Icon> {props.text}</span>
-                <input type="file" style={{width: "1500px"}}/>
+                <input name={props.name} required onChange={props.onChange} type="file" style={{width: "1500px"}}/>
             </div>
             <div class="file-path-wrapper" style={{width: "395px"}}>
                 <input class="file-path validate" type="text" />
@@ -40,7 +42,9 @@ export const TextInputElement = (props) => {
                 error={props.error}
                 success={props.success}
                 password={props.password}
-
+                name={props.name} 
+                onChange={props.onChange}
+                required
             />
         </div>
     );
@@ -57,6 +61,8 @@ export const ButtonElement = (props) => {
                 style={props.style}
                 onClick={props.onClick}
                 icon={props.icon}
+                name={props.name}
+                required
             >
                 {props.text}
             </Button>

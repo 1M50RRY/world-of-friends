@@ -8,15 +8,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         user1Id: {
             type: DataTypes.INTEGER,
-            references: {model: 'users', key: 'id'}
         },
         user2Id: {
             type: DataTypes.INTEGER,
-            references: {model: 'users', key: 'id'}
         },
         blockedById: {
             type: DataTypes.INTEGER,
-            references: {model: 'users', key: 'id'}
         }
     });
 

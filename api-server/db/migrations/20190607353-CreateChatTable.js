@@ -9,15 +9,12 @@ module.exports = {
             },
             user1Id: {
                 type: Sequelize.INTEGER,
-                references: {model: 'users', key: 'id'}
             },
             user2Id: {
                 type: Sequelize.INTEGER,
-                references: {model: 'users', key: 'id'}
             },
             blockedById: {
                 type: Sequelize.INTEGER,
-                references: {model: 'users', key: 'id'}
             }
         });
     },

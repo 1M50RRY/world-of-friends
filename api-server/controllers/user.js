@@ -1,9 +1,10 @@
 let models = require('../db/models');
+let bcrypt = require('bcrypt');
 const axios = require('axios');
 
 exports.get_users = (req, res, next) => {
     models.User.findAll().then(users => {
-        res.send(users);
+        
     }).then(users => {
         models.UserData.findAll().then(usersData => {
             res.send(
@@ -18,13 +19,14 @@ exports.get_users = (req, res, next) => {
 }
 
 exports.get_user = (req, res, next) => {
-    if (req.session.id)
+    console.log(req.session);
+    if (req.session.userId)
         return models.User.findOne({
             where: {
-                id: req.session.id
+                id: req.session.userId
             }
         }).then(user => {
-            models.UserData.finOne({
+            models.UserData.findOne({
                 where: {
                     id: user.userDataId
                 }
@@ -44,28 +46,47 @@ exports.get_user = (req, res, next) => {
         });
 }
 
+exports.login = (req, res, next) => {
+    return models.User.findOne({
+        where: {
+            email: req.body.email
+        }
+    }).then(user => {
+        if (bcrypt.compareSync(req.body.password, user.password))
+            models.UserData.findOne({
+                where: {
+                    id: user.userDataId
+                }
+            }).then(userData => {
+                req.session.userId = user.id;
+                res.send(
+                    {
+                        status: "OK",
+                        user: user,
+                        userData: userData
+                    }
+                );
+            });
+        else res.send({status: "WRONG_PASSWORD"});
+    });
+}
+
 exports.add_user = (req, res, next) => {
     var hash = bcrypt.hashSync(req.body.password, 10);
-    let avatar = req.files.avatar;
-    avatar.mv('public/images/', function (err) {
-        if (err)
-            return res.status(500).send(err);
-    });
-    return axios.get(
-        'http://api.ipstack.com/' +
-        req.headers['x-forwarded-for'] || req.connection.remoteAddress
-        + '?access_key=3e90dc099638b5b854dfcab26a2a5058'
-    ).then(response => {
+    var ip = req.connection.remoteAddress === '::ffff:127.0.0.1' ? '78.30.248.52' : req.connection.remoteAddress;
+    var api_url = 'http://api.ipstack.com/' +  ip + '?access_key=3e90dc099638b5b854dfcab26a2a5058';
+    return axios.get(api_url).then(response => {
         models.Country.findOne({
             where: {
-                code: JSON.parse(response.data).country_code
+                code: response.data.country_code
             }
         }).then(country => {
             models.UserData.create({
                 name: req.body.name,
                 gender: req.body.gender,
-                last_login: new Date().format('m-d-Y h:i'),
-                avatar: 'public/images/' + avatar.name,
+                last_login: new Date().toLocaleString(),
+                avatar: '/images/' + req.file.filename,
+                theme: false,
                 countryId: country.id,
                 session: "1"
             }).then(userData => {
@@ -74,7 +95,12 @@ exports.add_user = (req, res, next) => {
                     password: hash,
                     userDataId: userData.id,
                 }).then(user => {
-                    res.send({ status: "OK" });
+                    req.session.userId = user.id;
+                    res.send({ 
+                        status: "OK", 
+                        user: user, 
+                        userData: userData 
+                    });
                 });
             });
         });

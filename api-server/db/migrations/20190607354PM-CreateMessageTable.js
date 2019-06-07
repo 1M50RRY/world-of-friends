@@ -9,11 +9,9 @@ module.exports = {
             },
             chatId: {
                 type: Sequelize.INTEGER,
-                references: {model: 'chats', key: 'id'}
             },
             recipentId: {
                 type: Sequelize.INTEGER,
-                references: {model: 'users', key: 'id'}
             },
             date: Sequelize.STRING,
             time: Sequelize.STRING,

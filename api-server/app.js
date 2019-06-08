@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var countryRouter = require('./routes/country')
 var usersRouter = require('./routes/user');
+var chatsRouter = require('./routes/chat');
 const bodyParser = require('body-parser')
 var cors = require('cors');
 
@@ -21,9 +22,9 @@ app.use(session({
     key: 'express.sessionId',
     resave: false,
     saveUninitialized: true,
-    expires: new Date(Date.now() + (30 * 86400 * 1000)),
+    expires: false,
     maxAge: Date.now() + (30 * 86400 * 1000), 
-    cookie: { secure: false, httpOnly: false } 
+    cookie: { secure: false, httpOnly: false }
   })
 );
 
@@ -40,6 +41,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/countries', countryRouter);
 app.use('/users', usersRouter);
+app.use('/chats', chatsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

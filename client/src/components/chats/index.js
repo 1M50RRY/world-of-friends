@@ -9,6 +9,8 @@ import ChatBox from './chat-box'
 import { Row } from 'react-materialize'
 import { updateChats, selectChat, searchChats, } from '../../redux/actions/chatsActions'
 import { changeTheme, changeName, changeAvatar} from '../../redux/actions/userActions'
+import axios from 'axios'
+axios.defaults.withCredentials = true;
 
 class ChatContainer extends React.Component {   
     onSelect = ( chatId ) => {
@@ -26,6 +28,22 @@ class ChatContainer extends React.Component {
             chats[chatId].isBlocked = isBlocked;
             this.props.updateChats(chats);
         }
+    }
+
+    onChatsUpdate = () => {
+        /*
+         axios.post("http://localhost:3000/users/login", this.state, { headers: { "Access-Control-Allow-Origin": "*", } })
+        .then(res => { 
+            if (res.data.status === 'OK'){
+                let user = Object.assign(res.data.user, res.data.userData);
+                this.props.onAuth(user);
+            } 
+        });
+        */
+    }
+
+    onFindNewFriend = (gender, country, message) => {
+        
     }
 
     getSelectedChat () {

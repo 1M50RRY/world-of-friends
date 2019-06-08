@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../../css/chats.css'
 import { Textarea, Icon, Col, Button, Row } from 'react-materialize'
 
 export class SendForm extends React.Component {

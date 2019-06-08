@@ -4,7 +4,6 @@ const axios = require('axios');
 
 exports.get_users = (req, res, next) => {
     models.User.findAll().then(users => {
-        
     }).then(users => {
         models.UserData.findAll().then(usersData => {
             res.send(
@@ -60,6 +59,7 @@ exports.login = (req, res, next) => {
                 }
             }).then(userData => {
                 req.session.userId = user.id;
+                req.session.cookie.maxAge = 14 * 24 * 3600000;
                 console.log("Set session: ", req.session.id);
                 res.send(
                     {
@@ -98,6 +98,7 @@ exports.add_user = (req, res, next) => {
                     userDataId: userData.id,
                 }).then(user => {
                     req.session.userId = user.id;
+                    req.session.cookie.maxAge = 14 * 24 * 3600000;
                     res.send({ 
                         status: "OK", 
                         user: user, 

@@ -17,7 +17,6 @@ export class SignInForm extends React.Component {
     }
 
     onClick = () => {
-
         axios.post("http://localhost:3000/users/login", this.state, { headers: { "Access-Control-Allow-Origin": "*", } })
         .then(res => { 
             if (res.data.status === 'OK'){

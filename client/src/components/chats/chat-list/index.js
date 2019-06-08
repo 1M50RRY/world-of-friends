@@ -10,7 +10,7 @@ class ChatList extends React.Component {
     }
 
     renderChats () {
-        if(this.props.chats.length)
+        if(this.props.chats)
         {
             return this.props.chats.map(chat =>
                 chat.name.includes(this.props.query) ? 

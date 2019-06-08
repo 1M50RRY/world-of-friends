@@ -34,7 +34,7 @@ class Container extends React.Component {
         });
     }
 
-    componentDidMount () {
+    componentWillMount () {
         this.checkAuth();
     }
 

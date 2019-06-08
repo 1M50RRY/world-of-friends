@@ -1,6 +1,7 @@
 {
   "name": "api-server",
   "version": "0.0.0",
+  "proxy": "http://localhost:3001",
   "private": true,
   "scripts": {
     "start": "SET DEBUG=api-server:* & nodemon ./bin/www",

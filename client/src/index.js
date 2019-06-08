@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux'
 import { setUser } from './redux/actions/userActions'
 import store from './redux'
 import axios from 'axios'
+axios.defaults.withCredentials = true;
 
 class Container extends React.Component {
     onAuth = ( user ) => {
@@ -24,7 +25,7 @@ class Container extends React.Component {
     }
 
     checkAuth = () => {
-        axios.get('http://localhost:3000/users/get').then(response => {
+        axios.get('http://localhost:3000/users/get', { headers: { "Access-Control-Allow-Origin": "*", } }).then(response => {
             console.log(response);
             if (response.data.status === 'OK')
                 this.onAuth(Object.assign(response.data.user, response.data.userData))

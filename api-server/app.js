@@ -11,7 +11,7 @@ const bodyParser = require('body-parser')
 var cors = require('cors');
 
 var app = express();
-
+app.use(cors({origin:true,credentials: true}));
 
 // view engine setup
 //app.set('trust proxy', 1);
@@ -23,7 +23,7 @@ app.use(session({
     saveUninitialized: true,
     expires: new Date(Date.now() + (30 * 86400 * 1000)),
     maxAge: Date.now() + (30 * 86400 * 1000), 
-    cookie: { secure: true } 
+    cookie: { secure: false, httpOnly: false } 
   })
 );
 
@@ -34,7 +34,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+
 
 app.use(express.static(__dirname + '/public'));
 

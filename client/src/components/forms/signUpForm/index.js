@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { SwitchElement, FileUploadElement, TextInputElement, ButtonElement } from '../inputs'
+axios.defaults.withCredentials = true;
 
 export default class SignUpForm extends React.Component {
     constructor(props){
@@ -27,9 +28,9 @@ export default class SignUpForm extends React.Component {
         else data.append('gender', 'MALE');
         data.append('email', this.state.email);
         data.append('password', this.state.password);
-        axios.post("http://localhost:3000/users/add", data)
+        axios.post("http://localhost:3000/users/add", data, { headers: { "Access-Control-Allow-Origin": "*", } })
         .then(res => { 
-            if (res.data.status === 'OK') this.props.onAuth(Object.assign(res.data.users, res.data.usersData));
+            if (res.data.status === 'OK') this.props.onAuth(Object.assign(res.data.user, res.data.userData));
         });
     }
 

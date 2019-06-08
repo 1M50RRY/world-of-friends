@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { TextInputElement, ButtonElement } from '../inputs'
+axios.defaults.withCredentials = true;
 
 export class SignInForm extends React.Component {
     constructor(props){
@@ -16,7 +17,8 @@ export class SignInForm extends React.Component {
     }
 
     onClick = () => {
-        axios.post("http://localhost:3000/users/login", this.state)
+
+        axios.post("http://localhost:3000/users/login", this.state, { headers: { "Access-Control-Allow-Origin": "*", } })
         .then(res => { 
             if (res.data.status === 'OK'){
                 let user = Object.assign(res.data.user, res.data.userData);

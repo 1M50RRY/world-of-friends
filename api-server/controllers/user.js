@@ -19,6 +19,7 @@ exports.get_users = (req, res, next) => {
 }
 
 exports.get_user = (req, res, next) => {
+    console.log("Got session: ", req.session.id);
     console.log(req.session);
     if (req.session.userId)
         return models.User.findOne({
@@ -59,6 +60,7 @@ exports.login = (req, res, next) => {
                 }
             }).then(userData => {
                 req.session.userId = user.id;
+                console.log("Set session: ", req.session.id);
                 res.send(
                     {
                         status: "OK",

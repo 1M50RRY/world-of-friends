@@ -10,14 +10,29 @@ exports.get_chats = (req, res, next) => {
             id: req.session.userId
         }
     }).then(user => {
-        
+        models.Chat.finAll({
+            where: {
+                $or: [
+                    {user1Id: {$eq: user.id}},
+                    {user2Id: {$eq: user.id}}
+                ]
+            }
+        }).then(chats => {
+            chats.map(chat => {
+                models.Message.findAll({
+                    where: {
+                        chatId: chat.id
+                    }
+                }).then(messages => {
+                    // TODO
+                });
+            });
+        });
     });
 }
 
 exports.find_friend = (req, res, next) => {
     var date = new Date();
-    console.log(req.body);
-    console.log(req.session.userId);
     return models.User.findOne({
         where: {
             id: req.session.userId

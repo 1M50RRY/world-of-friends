@@ -4,29 +4,40 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
+const Op = db.Sequelize.Op;
+
 exports.get_chats = (req, res, next) => {
     return models.User.findOne({
         where: {
             id: req.session.userId
         }
     }).then(user => {
-        models.Chat.finAll({
+        models.Chat.findAll({
             where: {
-                $or: [
-                    {user1Id: {$eq: user.id}},
-                    {user2Id: {$eq: user.id}}
-                ]
-            }
-        }).then(chats => {
-            chats.map(chat => {
-                models.Message.findAll({
+                [Op.or]: [{user1Id: user.id}, {user2Id: user.id}]
+            },
+            raw : true
+        }).then(async chats => {
+            const response = await Promise.all(chats.map(async chat => {
+                chat.friend = await models.UserData.findOne({
+                    where: {
+                        id: user.id === chat.user1Id ? chat.user2Id : chat.user1Id
+                    },
+                    raw : true
+                });
+                chat.messages = await models.Message.findAll({
                     where: {
                         chatId: chat.id
-                    }
-                }).then(messages => {
-                    // TODO
+                    },
+                    raw : true
                 });
-            });
+                chat.messages.map(message => {
+                    message.isMine = message.recipentId === user.id;
+                });
+                return chat;
+            }));
+            console.log(response);
+            res.send({status: 'OK', chats: response})
         });
     });
 }

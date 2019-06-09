@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 let chats = require('../controllers/chat');
 
-//router.get('/', chats.get_countries);
+router.get('/', chats.get_chats);
 
 //router.get('/id/:chat_id', chats.get_country)
 

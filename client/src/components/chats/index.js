@@ -31,19 +31,14 @@ class ChatContainer extends React.Component {
     }
 
     onChatsUpdate = () => {
-        /*
-         axios.post("http://localhost:3000/users/login", this.state, { headers: { "Access-Control-Allow-Origin": "*", } })
+        axios.get("http://localhost:3000/chats", { headers: { "Access-Control-Allow-Origin": "*", } })
         .then(res => { 
-            if (res.data.status === 'OK'){
-                let user = Object.assign(res.data.user, res.data.userData);
-                this.props.onAuth(user);
-            } 
+            console.log(res.data);
         });
-        */
     }
 
-    onFindNewFriend = (gender, country, message) => {
-        
+    componentWillMount() {
+        this.onChatsUpdate();
     }
 
     getSelectedChat () {

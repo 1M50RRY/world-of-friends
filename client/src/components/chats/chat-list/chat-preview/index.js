@@ -22,7 +22,7 @@ export default class ChatPreview extends React.Component {
                         : 
                         this.props.generateColor('transparent', 'transparent', 'white', 'black') 
                     }
-                onClick={() => this.props.onSelect()}
+                onClick={this.props.onSelect}
             >
                 <img src={this.props.avatar} alt="" className="circle" />
                 <MessagePreviewTextContent

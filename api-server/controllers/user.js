@@ -31,6 +31,8 @@ exports.get_user = (req, res, next) => {
                     id: user.userDataId
                 }
             }).then(userData => {
+                user.password = 'lol';
+                userData.avatar = 'http://localhost:3000' + userData.avatar;
                 res.send(
                     {
                         status: "OK",
@@ -60,6 +62,7 @@ exports.login = (req, res, next) => {
             }).then(userData => {
                 req.session.userId = user.id;
                 req.session.cookie.maxAge = 14 * 24 * 3600000;
+                user.password = 'lol';
                 console.log("Set session: ", req.session.id);
                 res.send(
                     {
@@ -99,6 +102,7 @@ exports.add_user = (req, res, next) => {
                 }).then(user => {
                     req.session.userId = user.id;
                     req.session.cookie.maxAge = 14 * 24 * 3600000;
+                    user.password = 'lol';
                     res.send({ 
                         status: "OK", 
                         user: user, 

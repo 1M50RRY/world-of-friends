@@ -23,7 +23,7 @@ const Interlocutor = (props) => {
 
 const CountryFlag = (props) => {
     return (
-        <img src={`https://www.countryflags.io/${props.country}/shiny/64.png`} alt={props.country}/>
+        <img src={props.country.flag} alt={props.country.name}/>
     );
 }
 

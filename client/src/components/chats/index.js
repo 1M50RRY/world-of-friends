@@ -14,6 +14,7 @@ axios.defaults.withCredentials = true;
 
 class ChatContainer extends React.Component {   
     onSelect = ( chatId ) => {
+        console.log(chatId);
         this.props.selectChat(chatId);
         if (this.props.chats[chatId]) {
             let chats = this.props.chats.slice();
@@ -33,7 +34,8 @@ class ChatContainer extends React.Component {
     onChatsUpdate = () => {
         axios.get("http://localhost:3000/chats", { headers: { "Access-Control-Allow-Origin": "*", } })
         .then(res => { 
-            console.log(res.data);
+            console.log(res.data.chats);
+            this.props.updateChats(res.data.chats);
         });
     }
 
@@ -42,7 +44,7 @@ class ChatContainer extends React.Component {
     }
 
     getSelectedChat () {
-        let def = {id:null,name:null,country:null,lastSeen:null,isBlocked:null};
+        let def = {id:null,isBlocked:null,friend:{name:null,country:null,lastSeen:null}};
         if (this.props.selectedChatId !== undefined && this.props.chats) {
             let selectedChat = this.props.chats[this.props.selectedChatId];
             return selectedChat === undefined ? def : selectedChat;
@@ -76,7 +78,7 @@ class ChatContainer extends React.Component {
     onMessageSend = ( text ) => {
         let chats = this.props.chats.slice();
         let date = new Date();
-        chats[this.props.selectedChatId].lastMessages.push(
+        chats[this.props.selectedChatId].messages.push(
             {
                 //id: 1,
                 isMine: true,
@@ -93,10 +95,10 @@ class ChatContainer extends React.Component {
         return (
             <div className="container" style={this.generateColor('#37474f', 'white', 'white', 'white')}>
                 <Header 
-                    id={this.getSelectedChat().id}
-                    name={this.getSelectedChat().name}
-                    country={this.getSelectedChat().country}
-                    lastSeen={this.getSelectedChat().lastSeen}
+                    id={this.selectedChat}
+                    name={this.getSelectedChat().friend.name}
+                    country={this.getSelectedChat().friend.country}
+                    lastSeen={this.getSelectedChat().friend.last_login}
                     onBlock={this.onBlock}
                     isBlocked={this.getSelectedChat().isBlocked}
                     onUserNameChange={this.onUserNameChange}
@@ -114,7 +116,7 @@ class ChatContainer extends React.Component {
                         generateColor={this.generateColor}
                     />
                     <ChatBox 
-                        messages={this.getSelectedChat().lastMessages} 
+                        messages={this.getSelectedChat().messages} 
                         generateColor={this.generateColor} 
                     />
                 </Row>

@@ -23,17 +23,24 @@ exports.get_chats = (req, res, next) => {
                     where: {
                         id: user.id === chat.user1Id ? chat.user2Id : chat.user1Id
                     },
-                    raw : true
+                    raw: true
+                });
+                chat.friend.country = await models.Country.findOne({
+                    where: {
+                        id: chat.friend.countryId
+                    },
+                    raw: true
                 });
                 chat.messages = await models.Message.findAll({
                     where: {
                         chatId: chat.id
                     },
-                    raw : true
+                    raw: true
                 });
                 chat.messages.map(message => {
-                    message.isMine = message.recipentId === user.id;
+                    message.isMine = message.recipentId !== user.id;
                 });
+                chat.friend.avatar = 'http://localhost:3000' + chat.friend.avatar;
                 return chat;
             }));
             console.log(response);

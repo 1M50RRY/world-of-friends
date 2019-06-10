@@ -12,19 +12,21 @@ class ChatList extends React.Component {
     renderChats () {
         if(this.props.chats)
         {
-            return this.props.chats.map(chat =>
-                chat.name.includes(this.props.query) ? 
+            return this.props.chats.map((chat, index) =>
+                chat.friend.name.includes(this.props.query) ? 
                 <ChatPreview
-                    isChatSelected={this.isChatSelected(chat.id)}
-                    onSelect={() => this.props.onSelect(chat.id)}
+                    isChatSelected={this.isChatSelected(index)}
+                    onSelect={() => this.props.onSelect(index)}
                     key={chat.id} 
-                    avatar={chat.avatar}
-                    name={chat.name}
-                    lastMessageText={chat.lastMessages[chat.lastMessages.length - 1].content}
-                    isMyMessageLast={chat.lastMessages[chat.lastMessages.length - 1].isMine}
-                    lastMessageTime={chat.lastMessages[chat.lastMessages.length - 1].time}
-                    checked={chat.lastMessages[chat.lastMessages.length - 1].isRead}
-                    unreadMessages={chat.unreadMessages}
+                    avatar={chat.friend.avatar}
+                    name={chat.friend.name}
+                    lastMessageText={chat.messages[chat.messages.length - 1].content}
+                    isMyMessageLast={chat.messages[chat.messages.length - 1].isMine}
+                    lastMessageTime={chat.messages[chat.messages.length - 1].time}
+                    checked={chat.messages[chat.messages.length - 1].isRead}
+                    unreadMessages={chat.messages.map(message => {
+                        return !message.isMine && message.isRead ? message : null
+                    }).length}
                     generateColor={this.props.generateColor}
                 />
                 :

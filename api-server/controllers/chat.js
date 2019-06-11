@@ -18,7 +18,7 @@ exports.get_chats = (req, res, next) => {
             },
             raw : true
         }).then(async chats => {
-            const response = await Promise.all(chats.map(async chat => {
+            var response = await Promise.all(chats.map(async chat => {
                 chat.friend = await models.UserData.findOne({
                     where: {
                         id: user.id === chat.user1Id ? chat.user2Id : chat.user1Id
@@ -43,6 +43,7 @@ exports.get_chats = (req, res, next) => {
                 chat.friend.avatar = 'http://localhost:3000' + chat.friend.avatar;
                 return chat;
             }));
+            response = response.sort(chat => chat.messages[chat.messages.length - 1].id);
             console.log(response);
             res.send({status: 'OK', chats: response})
         });
@@ -76,7 +77,7 @@ exports.find_friend = (req, res, next) => {
                     models.Message.create({
                         chatId: chat.id,
                         recipentId: recipent.id,
-                        date: monthNames[date.getMonth()] + ' ' + date.getDay(),
+                        date: monthNames[date.getMonth()] + ' ' + date.getDate(),
                         time: date.getHours() + ':' + date.getMinutes(),
                         isRead: false,
                         content: req.body.content

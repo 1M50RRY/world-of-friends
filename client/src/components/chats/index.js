@@ -40,7 +40,12 @@ class ChatContainer extends React.Component {
     }
 
     componentWillMount() {
-        this.onChatsUpdate();
+        this.refresh = setInterval(() => this.onChatsUpdate(), 1000);
+    }
+
+    componentWillUnmount()
+    {
+        clearInterval(this.refresh);
     }
 
     getSelectedChat () {

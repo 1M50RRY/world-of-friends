@@ -1,21 +1,19 @@
 import React from 'react';
-import '../../../../../css/chats.css'
 import { Button } from 'react-materialize'
 
 class BlockUser extends React.Component {
 
     onUserBlock () {
-        this.props.onBlock(this.props.id, !this.props.isBlocked);
+        this.props.onBlock();
     }
     
     render () 
     {
-        console.log(this.props.isBlocked);
-        let button = this.props.isBlocked ? 
+        let button = this.props.blockedById !== this.props.friendId && this.props.blockedById !== null && this.props.isBlocked ? 
                 <UnblockButton onClick={() => this.onUserBlock()} /> 
                 : 
                 <BlockButton onClick={() => this.onUserBlock()} />;
-        return this.props.id !== null ? button : null;
+        return this.props.blockedById !== undefined ? button : null;
     }
 }
 

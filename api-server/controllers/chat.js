@@ -44,9 +44,35 @@ exports.get_chats = (req, res, next) => {
                 return chat;
             }));
             response = response.sort(chat => chat.messages[chat.messages.length - 1].id);
-            console.log(response);
             res.send({status: 'OK', chats: response})
         });
+    });
+}
+
+exports.block_user = (req, res, next) => {
+    console.log(req.body);
+    return models.Chat.update(
+        {
+            blockedById: req.session.userId
+        },
+        {
+            where: {id: req.body.chatId}
+        }
+    ).then(chat => {
+        res.send({status: 'OK'});
+    });
+}
+
+exports.unblock_user = (req, res, next) => {
+    return models.Chat.update(
+        {
+            blockedById: null
+        },
+        {
+            where: {id: req.body.chatId}
+        }
+    ).then(chat => {
+        res.send({status: 'OK'});
     });
 }
 

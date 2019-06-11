@@ -17,6 +17,7 @@ class Container extends React.Component {
         console.log(user);
         if (user !== null)
             this.props.setUser({
+                id: user.id,
                 name: user.name, 
                 avatar: user.avatar,
                 email: user.email,

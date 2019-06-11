@@ -13,34 +13,42 @@ import axios from 'axios'
 axios.defaults.withCredentials = true;
 
 class ChatContainer extends React.Component {   
-    onSelect = ( chatId ) => {
-        console.log(chatId);
+    onSelect = ( chatId ) => {  
         this.props.selectChat(chatId);
+        /*
         if (this.props.chats[chatId]) {
             let chats = this.props.chats.slice();
             chats[chatId].unreadMessages = 0;
             this.props.updateChats(chats);
         }
+        */
     }
 
-    onBlock = ( chatId, isBlocked ) => {
-        if (this.props.chats[chatId]) {
-            let chats = this.props.chats.slice();
-            chats[chatId].isBlocked = isBlocked;
-            this.props.updateChats(chats);
+    onBlock = () => {
+        if (this.getSelectedChat().blockedById == null) {
+            axios.post("http://localhost:3000/chats/block", {chatId: this.getSelectedChat().id}, { headers: { "Access-Control-Allow-Origin": "*", } })
+            .then(res => { 
+                //console.log(res.data.chats);
+            });
+        }
+        else if(this.getSelectedChat().blockedById === this.props.user.id) {
+            axios.post("http://localhost:3000/chats/unblock", {chatId: this.getSelectedChat().id}, { headers: { "Access-Control-Allow-Origin": "*", } })
+            .then(res => { 
+                //console.log(res.data.chats);
+            });
         }
     }
 
     onChatsUpdate = () => {
         axios.get("http://localhost:3000/chats", { headers: { "Access-Control-Allow-Origin": "*", } })
         .then(res => { 
-            console.log(res.data.chats);
+            //console.log(res.data.chats);
             this.props.updateChats(res.data.chats);
         });
     }
 
     componentWillMount() {
-        this.refresh = setInterval(() => this.onChatsUpdate(), 1000);
+        this.refresh = setInterval(() => this.onChatsUpdate(), 500);
     }
 
     componentWillUnmount()
@@ -100,12 +108,14 @@ class ChatContainer extends React.Component {
         return (
             <div className="container" style={this.generateColor('#37474f', 'white', 'white', 'white')}>
                 <Header 
-                    id={this.selectedChat}
+                    id={this.props.selectedChatId}
                     name={this.getSelectedChat().friend.name}
                     country={this.getSelectedChat().friend.country}
                     lastSeen={this.getSelectedChat().friend.last_login}
                     onBlock={this.onBlock}
-                    isBlocked={this.getSelectedChat().isBlocked}
+                    isBlocked={this.getSelectedChat().blockedById !== undefined}
+                    blockedById={this.getSelectedChat().blockedById}
+                    friendId={this.getSelectedChat().friend.id}
                     onUserNameChange={this.onUserNameChange}
                     onThemeChange={this.onThemeChange}
                     user={this.props.user}
@@ -126,7 +136,7 @@ class ChatContainer extends React.Component {
                     />
                 </Row>
                 { 
-                    this.getSelectedChat().id !== null ? 
+                    this.getSelectedChat().id !== null && !this.getSelectedChat().isBlocked ? 
                         <SendForm generateColor={this.generateColor} onMessageSend={this.onMessageSend}/> 
                         : 
                         null

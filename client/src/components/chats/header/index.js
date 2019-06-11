@@ -29,6 +29,8 @@ const Header = (props) => {
                 id={props.id} 
                 onBlock={props.onBlock}
                 generateColor={props.generateColor}
+                blockedById={props.blockedById}
+                friendId={props.friendId}
             />
         </Row>
     );

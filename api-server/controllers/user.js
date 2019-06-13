@@ -2,7 +2,7 @@ let models = require('../db/models');
 let bcrypt = require('bcrypt');
 const axios = require('axios');
 
-exports.get_users = (req, res, next) => {
+exports.getUsers = (req, res, next) => {
     models.User.findAll().then(users => {
     }).then(users => {
         models.UserData.findAll().then(usersData => {
@@ -17,7 +17,7 @@ exports.get_users = (req, res, next) => {
     });
 }
 
-exports.get_user = (req, res, next) => {
+exports.getUser = (req, res, next) => {
     console.log("Got session: ", req.session.id);
     console.log(req.session);
     if (req.session.userId)
@@ -63,6 +63,7 @@ exports.login = (req, res, next) => {
                 req.session.userId = user.id;
                 req.session.cookie.maxAge = 14 * 24 * 3600000;
                 user.password = 'lol';
+                userData.avatar = 'http://localhost:3000' + userData.avatar;
                 console.log("Set session: ", req.session.id);
                 res.send(
                     {
@@ -76,11 +77,12 @@ exports.login = (req, res, next) => {
     });
 }
 
-exports.add_user = (req, res, next) => {
+exports.addUser = (req, res, next) => {
     var hash = bcrypt.hashSync(req.body.password, 10);
-    var ip = req.connection.remoteAddress === '::ffff:127.0.0.1' ? '78.30.248.52' : req.connection.remoteAddress;
+    var ip = '104.194.220.62' // For local tests;
     var api_url = 'http://api.ipstack.com/' +  ip + '?access_key=3e90dc099638b5b854dfcab26a2a5058';
     return axios.get(api_url).then(response => {
+        console.log(response);
         models.Country.findOne({
             where: {
                 code: response.data.country_code
@@ -103,6 +105,7 @@ exports.add_user = (req, res, next) => {
                     req.session.userId = user.id;
                     req.session.cookie.maxAge = 14 * 24 * 3600000;
                     user.password = 'lol';
+                    userData.avatar = 'http://localhost:3000' + userData.avatar;
                     res.send({ 
                         status: "OK", 
                         user: user, 

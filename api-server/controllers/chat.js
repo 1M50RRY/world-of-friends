@@ -6,7 +6,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 
 const Op = db.Sequelize.Op;
 
-exports.get_chats = (req, res, next) => {
+exports.getChats = (req, res, next) => {
     return models.User.findOne({
         where: {
             id: req.session.userId
@@ -49,7 +49,11 @@ exports.get_chats = (req, res, next) => {
     });
 }
 
-exports.block_user = (req, res, next) => {
+exports.sendMessage = (req, res, next) => {
+
+}
+
+exports.blockUser = (req, res, next) => {
     console.log(req.body);
     return models.Chat.update(
         {
@@ -63,7 +67,7 @@ exports.block_user = (req, res, next) => {
     });
 }
 
-exports.unblock_user = (req, res, next) => {
+exports.unblockUser = (req, res, next) => {
     return models.Chat.update(
         {
             blockedById: null
@@ -76,7 +80,7 @@ exports.unblock_user = (req, res, next) => {
     });
 }
 
-exports.find_friend = (req, res, next) => {
+exports.findFriend = (req, res, next) => {
     var date = new Date();
     return models.User.findOne({
         where: {
@@ -95,21 +99,30 @@ exports.find_friend = (req, res, next) => {
                     id:{[db.Sequelize.Op.ne]: user.id}
                 }
             }).then(recipent => {
-                models.Chat.create({
-                    user1Id: user.id,
-                    user2Id: recipent.id,
-                    blockedById: null
-                }).then(chat => {
-                    models.Message.create({
-                        chatId: chat.id,
-                        recipentId: recipent.id,
-                        date: monthNames[date.getMonth()] + ' ' + date.getDate(),
-                        time: date.getHours() + ':' + date.getMinutes(),
-                        isRead: false,
-                        content: req.body.content
-                    }).then(message => {
-                        res.send({status: 'OK'});
-                    });
+                models.Chat.findAll({
+                    where: {
+                        [Op.or]: [{user1Id: user.id}, {user2Id: recipent.id}],
+                        [Op.or]: [{user1Id: recipent.id}, {user2Id: user.id}]
+                    }
+                }).then(sameChat => {
+                    if (sameChat.length === 0) {
+                        models.Chat.create({
+                            user1Id: user.id,
+                            user2Id: recipent.id,
+                            blockedById: null
+                        }).then(chat => {
+                            models.Message.create({
+                                chatId: chat.id,
+                                recipentId: recipent.id,
+                                date: monthNames[date.getMonth()] + ' ' + date.getDate(),
+                                time: date.getHours() + ':' + date.getMinutes(),
+                                isRead: false,
+                                content: req.body.content
+                            }).then(message => {
+                                res.send({status: 'OK'});
+                            });
+                        });
+                    }
                 });
             });
         });

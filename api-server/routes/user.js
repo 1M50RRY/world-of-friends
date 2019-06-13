@@ -4,9 +4,7 @@ let users = require('../controllers/user');
 let multer = require('../db/config/storage')
 
 router.post('/login', users.login);
-
-router.get('/get', users.get_user)
-
-router.post('/add', multer.upload.single('avatar'), users.add_user);
+router.get('/get', users.getUser)
+router.post('/add', multer.upload.single('avatar'), users.addUser);
 
 module.exports = router;

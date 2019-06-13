@@ -1,6 +1,6 @@
 let models = require('../db/models');
 
-exports.get_countries = (req, res, next) => {
+exports.getCountries = (req, res, next) => {
     models.Country.findAll().then(countries => {
         res.send(
             {
@@ -11,7 +11,7 @@ exports.get_countries = (req, res, next) => {
     });
 }
 
-exports.get_country = (req, res, next) => {
+exports.getCountry = (req, res, next) => {
     return models.Country.findOne({
         where: {
             id: req.params.country_id
@@ -21,7 +21,7 @@ exports.get_country = (req, res, next) => {
     });
 }
 
-exports.add_country = (req, res, next) => {
+exports.addCountry = (req, res, next) => {
     return models.Country.create({
         name: req.body.name,
         code: req.body.code,

@@ -24,8 +24,8 @@ class ChatList extends React.Component {
                     isMyMessageLast={chat.messages[chat.messages.length - 1].isMine}
                     lastMessageTime={chat.messages[chat.messages.length - 1].time}
                     checked={chat.messages[chat.messages.length - 1].isRead}
-                    unreadMessages={chat.messages.map(message => {
-                        return !message.isMine && message.isRead ? message : null
+                    unreadMessages={chat.messages.filter(message => {
+                        return !message.isMine && !message.isRead ? message : null
                     }).length}
                     generateColor={this.props.generateColor}
                 />

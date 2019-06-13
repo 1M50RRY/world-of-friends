@@ -82,37 +82,44 @@ exports.addUser = (req, res, next) => {
     var ip = '104.194.220.62' // For local tests;
     var api_url = 'http://api.ipstack.com/' +  ip + '?access_key=3e90dc099638b5b854dfcab26a2a5058';
     return axios.get(api_url).then(response => {
-        console.log(response);
-        models.Country.findOne({
+        models.User.findAll({
             where: {
-                code: response.data.country_code
+                email: req.body.email
             }
-        }).then(country => {
-            models.UserData.create({
-                name: req.body.name,
-                gender: req.body.gender,
-                last_login: new Date().toLocaleString(),
-                avatar: '/images/' + req.file.filename,
-                theme: false,
-                countryId: country.id,
-                session: "1"
-            }).then(userData => {
-                models.User.create({
-                    email: req.body.email,
-                    password: hash,
-                    userDataId: userData.id,
-                }).then(user => {
-                    req.session.userId = user.id;
-                    req.session.cookie.maxAge = 14 * 24 * 3600000;
-                    user.password = 'lol';
-                    userData.avatar = 'http://localhost:3000' + userData.avatar;
-                    res.send({ 
-                        status: "OK", 
-                        user: user, 
-                        userData: userData 
+        }).then(existingUser => {
+            if (existingUser.length == 0) {
+                models.Country.findOne({
+                    where: {
+                        code: response.data.country_code
+                    }
+                }).then(country => {
+                    models.UserData.create({
+                        name: req.body.name,
+                        gender: req.body.gender,
+                        last_login: new Date().toLocaleString(),
+                        avatar: '/images/' + req.file.filename,
+                        theme: false,
+                        countryId: country.id,
+                        session: "1"
+                    }).then(userData => {
+                        models.User.create({
+                            email: req.body.email,
+                            password: hash,
+                            userDataId: userData.id,
+                        }).then(user => {
+                            req.session.userId = user.id;
+                            req.session.cookie.maxAge = 14 * 24 * 3600000;
+                            user.password = 'lol';
+                            userData.avatar = 'http://localhost:3000' + userData.avatar;
+                            res.send({ 
+                                status: "OK", 
+                                user: user, 
+                                userData: userData 
+                            });
+                        });
                     });
                 });
-            });
+            }
         });
     });
 }

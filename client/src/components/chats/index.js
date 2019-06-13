@@ -15,13 +15,14 @@ axios.defaults.withCredentials = true;
 class ChatContainer extends React.Component {   
     onSelect = ( chatId ) => {  
         this.props.selectChat(chatId);
-        /*
-        if (this.props.chats[chatId]) {
-            let chats = this.props.chats.slice();
-            chats[chatId].unreadMessages = 0;
-            this.props.updateChats(chats);
-        }
-        */
+        axios.post("http://localhost:3000/chats/check", 
+            {
+                chatId: this.getSelectedChat().id
+            }, 
+            { headers: { "Access-Control-Allow-Origin": "*", } }
+        ).then(res => { 
+                //console.log(res.data);
+        });
     }
 
     onBlock = () => {

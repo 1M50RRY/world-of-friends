@@ -49,6 +49,28 @@ exports.getChats = (req, res, next) => {
     });
 }
 
+exports.readChat = (req, res, next) => {
+    models.User.findOne({
+        where: {
+            id: req.session.userId
+        }
+    }).then(user => {
+        models.Message.update(
+            {
+                isRead: true
+            },
+            {
+                where: {
+                    chatId: req.body.chatId,
+                    recipentId: user.id
+                }
+            }
+        ).then(messages => {
+            res.send({status: 'OK'});
+        });
+    });
+}
+
 exports.sendMessage = (req, res, next) => {
     var date = new Date();
     models.User.findOne({

@@ -50,11 +50,26 @@ exports.getChats = (req, res, next) => {
 }
 
 exports.sendMessage = (req, res, next) => {
-
+    var date = new Date();
+    models.User.findOne({
+        where: {
+            id: req.session.userId
+        }
+    }).then(user => {
+        models.Message.create({
+            chatId: req.body.chatId,
+            recipentId: req.body.recipentId,
+            date: monthNames[date.getMonth()] + ' ' + date.getDate(),
+            time: date.getHours() + ':' + date.getMinutes(),
+            isRead: false,
+            content: req.body.content
+        }).then(message => {
+            res.send({status: 'OK'});
+        });
+    });
 }
 
 exports.blockUser = (req, res, next) => {
-    console.log(req.body);
     return models.Chat.update(
         {
             blockedById: req.session.userId

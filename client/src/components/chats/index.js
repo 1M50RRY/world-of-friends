@@ -89,19 +89,16 @@ class ChatContainer extends React.Component {
     }
 
     onMessageSend = ( text ) => {
-        let chats = this.props.chats.slice();
-        let date = new Date();
-        chats[this.props.selectedChatId].messages.push(
+        axios.post("http://localhost:3000/chats/send", 
             {
-                //id: 1,
-                isMine: true,
-                date: date.toLocaleString('en-us', { month: 'long' }) + ' ' + date.getDate(),
-                time:  ("0" + date.getHours()).slice(-2)   + ":" + ("0" + date.getMinutes()).slice(-2),
-                isRead: false,
+                chatId: this.getSelectedChat().id,
+                recipentId: this.getSelectedChat().friend.id,
                 content: text
-            }
-        );
-        this.props.updateChats(chats);
+            }, 
+            { headers: { "Access-Control-Allow-Origin": "*", } }
+        ).then(res => { 
+                //console.log(res.data);
+        });
     }
     
     render() {

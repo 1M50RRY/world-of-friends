@@ -1,22 +1,18 @@
 import React from 'react';
 import FindFriend from './find-friend'
-import BlockUser from './block-user'
+import { BlockUser } from './block-user'
 import { Col } from 'react-materialize'
 
-
-const ChatActions = (props) => {
-    return (
+export const ChatActions = ({generateColor, isBlocked, friendId, onBlock, id, blockedById}) => 
+    (
         <Col m={6} style={{ textAlign: 'right' }}>
-            <FindFriend generateColor={props.generateColor} />
+            <FindFriend generateColor={generateColor} />
             <BlockUser 
-                isBlocked={props.isBlocked} 
-                friendId={props.friendId} 
-                onBlock={props.onBlock} 
-                id={props.id}
-                blockedById={props.blockedById}
+                isBlocked={isBlocked} 
+                friendId={friendId} 
+                onBlock={onBlock} 
+                id={id}
+                blockedById={blockedById}
             />
         </Col>
     );
-}
-
-export default ChatActions;

@@ -1,39 +1,34 @@
 import React from 'react';
-import '../../../css/chats.css'
 import SideBar from './sidebar'
 import Interlocutor from './interlocutor'
-import ChatActions from './chat-actions'
+import { ChatActions } from './chat-actions'
 import { Col, Row } from 'react-materialize'
 
-
-const Header = (props) => {
-    return (
-        <Row style={props.generateColor('#607d8b', 'teal', 'white', 'white')}>
+export const Header = ({generateColor, onUserNameChange, onThemeChange, user, friend, isBlocked, id, onBlock, blockedById }) => 
+    (
+        <Row style={generateColor('#607d8b', 'teal', 'white', 'white')}>
             <SideBar 
-                onUserNameChange={props.onUserNameChange} 
-                onThemeChange={props.onThemeChange}
-                user={props.user}
-                generateColor={props.generateColor}
+                onUserNameChange={onUserNameChange} 
+                onThemeChange={onThemeChange}
+                user={user}
+                generateColor={generateColor}
             />
             <Col m={2} style={{ marginTop: '15px', marginLeft: '-25px', marginRight: '25px' }}>
                 <a href="#" className="header-logo">World of Friends</a>
             </Col>
             <Interlocutor
-                name={props.name}
-                country={props.country}
-                lastSeen={props.lastSeen}
-                generateColor={props.generateColor}
+                name={friend.name}
+                country={friend.country}
+                lastSeen={friend.last_login}
+                generateColor={generateColor}
             />
             <ChatActions 
-                isBlocked={props.isBlocked} 
-                id={props.id} 
-                onBlock={props.onBlock}
-                generateColor={props.generateColor}
-                blockedById={props.blockedById}
-                friendId={props.friendId}
+                isBlocked={isBlocked} 
+                id={id} 
+                onBlock={onBlock}
+                generateColor={generateColor}
+                blockedById={blockedById}
+                friendId={friend.id}
             />
         </Row>
     );
-}
-
-export default Header;

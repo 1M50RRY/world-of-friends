@@ -2,7 +2,7 @@ import React from 'react';
 import '../../css/chats.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Header from './header'
+import { Header } from './header'
 import ChatList from './chat-list'
 import { SendForm } from './send-form'
 import ChatBox from './chat-box'
@@ -66,13 +66,10 @@ class ChatContainer extends React.Component {
                 <Websocket url='ws://localhost:40510/'onMessage={this.onChatsUpdate.bind(this)} />
                 <Header 
                     id={this.props.selectedChatId}
-                    name={this.getSelectedChat().friend.name}
-                    country={this.getSelectedChat().friend.country}
-                    lastSeen={this.getSelectedChat().friend.last_login}
+                    friend={this.getSelectedChat().friend}
                     onBlock={this.onBlock}
                     isBlocked={this.getSelectedChat().blockedById !== undefined}
                     blockedById={this.getSelectedChat().blockedById}
-                    friendId={this.getSelectedChat().friend.id}
                     onUserNameChange={this.onUserNameChange}
                     onThemeChange={this.onThemeChange}
                     user={this.props.user}

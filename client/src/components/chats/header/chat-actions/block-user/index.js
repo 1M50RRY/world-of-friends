@@ -1,11 +1,9 @@
 import React from 'react';
 import { Button } from 'react-materialize'
 
-class BlockUser extends React.Component {
+export class BlockUser extends React.Component {
 
-    onUserBlock () {
-        this.props.onBlock();
-    }
+    onUserBlock () { this.props.onBlock(); }
     
     render () 
     {
@@ -17,22 +15,19 @@ class BlockUser extends React.Component {
     }
 }
 
-const BlockButton = (props) => {
-    return (
-        <Button waves="light" onClick={props.onClick} className='red darken-1' 
+const BlockButton = ({onClick}) => 
+    (
+        <Button waves="light" onClick={onClick} className='red darken-1' 
             style={{ WebkitBoxShadow: 'none', boxShadow: 'none', marginTop: '13px', marginBottom: '20px' }}>
             BLOCK
         </Button>
     );
-}
 
-const UnblockButton = (props) => {
-    return (
-        <Button waves="light" onClick={props.onClick} className='white' 
+
+const UnblockButton = ({onClick}) => 
+    (
+        <Button waves="light" onClick={onClick} className='white' 
             style={{ WebkitBoxShadow: 'none', boxShadow: 'none', marginTop: '13px', marginBottom: '20px', color:'black' }}>
             UNBLOCK
         </Button>
     );
-}
-
-export default BlockUser;

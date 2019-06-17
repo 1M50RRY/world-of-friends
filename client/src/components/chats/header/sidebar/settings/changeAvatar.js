@@ -1,9 +1,8 @@
 import React from 'react';
-import '../../../../../css/chats.css'
 import { SideNavItem, Button } from 'react-materialize'
 
-export const ChangeAvatar = (props) => {
-    return (
+export const ChangeAvatar = () => 
+    (
         <React.Fragment>
             <SideNavItem subheader>
                 Change profile picture
@@ -14,4 +13,3 @@ export const ChangeAvatar = (props) => {
             <br />
         </React.Fragment>
     );
-}

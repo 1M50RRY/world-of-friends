@@ -1,10 +1,9 @@
 import React from 'react';
 import { countryData } from '../../../../../data'
-import { Textarea, Modal, Button, Checkbox, Autocomplete } from 'react-materialize'
-import axios from 'axios'
-axios.defaults.withCredentials = true;
+import { Textarea, Modal, Button, Autocomplete } from 'react-materialize'
+import { axiosPost } from '../../../../../functions/api'
 
-class FindFriend extends React.Component {
+export default class FindFriend extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,27 +13,12 @@ class FindFriend extends React.Component {
         }
     }
 
-    onChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    }
+    onChange = (e) => this.setState({[e.target.name]: e.target.value});
+    onAutocomplete = (e) => this.setState({country: e});
+    onClick = () => axiosPost("http://localhost:3000/chats/find", this.state);
 
-    onAutocomplete = (e) => {
-        console.log(e);
-        this.setState({country: e});
-    }
-
-    onClick = () => {
-        //this.setState({country: document.getElementById('autocomplete-34').value});
-        axios.post("http://localhost:3000/chats/find", this.state, { headers: { "Access-Control-Allow-Origin": "*", } })
-        .then(res => { 
-            if (res.data.status === 'OK'){
-                console.log("Friend found");
-            } 
-        });
-    }
-
-    render() {
-        return (
+    render = () =>
+        (
             <Modal header="Search for new friends" style={this.props.generateColor('#607d8b', 'white', 'white', 'black')} fixedFooter trigger={
                 <Button
                     waves="light"
@@ -67,20 +51,6 @@ class FindFriend extends React.Component {
                     icon="flag"
                     style={this.props.generateColor('transparent', 'transparent', 'white', 'black')}
                 />
-                {/*
-                <Checkbox
-                    value="Male"
-                    label="Male"
-                    filledIn
-                    checked
-                />
-                <br />
-                <Checkbox
-                    value="Female"
-                    label="Female"
-                    filledIn
-                    checked
-                />*/
                 }
                 <Button
                     style={
@@ -95,7 +65,4 @@ class FindFriend extends React.Component {
                 </Button>
             </Modal>
         );
-    }
 }
-
-export default FindFriend;

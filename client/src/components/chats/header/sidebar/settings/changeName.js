@@ -1,9 +1,7 @@
 import React from 'react';
-import '../../../../../css/chats.css'
 import { SideNavItem, Button } from 'react-materialize'
 
 export class ChangeName extends React.Component {
-
     render () {
         return (
             <React.Fragment>

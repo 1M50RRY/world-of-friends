@@ -1,11 +1,10 @@
 import React from 'react';
-import '../../../../css/chats.css'
 import { SideNav, Col, SideNavItem, Button } from 'react-materialize'
 import { Settings } from './settings'
 
 export default class SideBar extends React.Component {
-    render() {
-        return (
+    render = () =>
+        (
             <Col m={1} style={{ marginTop: '1.2em' }}>
                 <SideNav 
                     trigger={<Button icon='menu' style={{backgroundColor: 'transparent', WebkitBoxShadow: 'none', boxShadow: 'none'}}/>} 
@@ -26,5 +25,4 @@ export default class SideBar extends React.Component {
                 </SideNav>
             </Col>
         );
-    }
 }

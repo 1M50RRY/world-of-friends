@@ -63,10 +63,7 @@ class ChatContainer extends React.Component {
     render = () => 
         (
             <div className="container" style={this.generateColor('#37474f', 'white', 'white', 'white')}>
-                <Websocket 
-                    url='ws://localhost:40510/'
-                    onMessage={this.onChatsUpdate.bind(this)}
-                />
+                <Websocket url='ws://localhost:40510/'onMessage={this.onChatsUpdate.bind(this)} />
                 <Header 
                     id={this.props.selectedChatId}
                     name={this.getSelectedChat().friend.name}
@@ -90,16 +87,11 @@ class ChatContainer extends React.Component {
                         onSearch={this.onSearch}
                         generateColor={this.generateColor}
                     />
-                    <ChatBox 
-                        messages={this.getSelectedChat().messages} 
-                        generateColor={this.generateColor} 
-                    />
+                    <ChatBox messages={this.getSelectedChat().messages} generateColor={this.generateColor} />
                 </Row>
                 { 
                     this.getSelectedChat().id !== null && !this.getSelectedChat().isBlocked ? 
-                        <SendForm generateColor={this.generateColor} onMessageSend={this.onMessageSend}/> 
-                        : 
-                        null
+                        <SendForm generateColor={this.generateColor} onMessageSend={this.onMessageSend}/> : null
                 }
             </div>
         );

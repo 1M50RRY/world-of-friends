@@ -9,7 +9,6 @@ var usersRouter = require('./routes/user');
 var chatsRouter = require('./routes/chat');
 const bodyParser = require('body-parser')
 var cors = require('cors');
-var ws = require('./ws')
 
 var app = express();
 app.use(cors({ origin: true, credentials: true }));

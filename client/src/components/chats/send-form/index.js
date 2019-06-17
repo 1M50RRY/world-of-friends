@@ -32,15 +32,6 @@ export class SendForm extends React.Component {
                 >
                     <Textarea style={Object.assign({ width: '800px', height: '50px', marginTop:'20px' }, 
                         this.props.generateColor('transparent ', 'transparent', 'white', 'black'))}
-                        icon={
-                            <Button flat waves="light" style={
-                                Object.assign({ marginTop:'20px'}, 
-                                    this.props.generateColor('transparent', 'transparent', 'white', 'teal'))}>
-                                <Icon>
-                                    attach_file
-                                </Icon>
-                            </Button>
-                        }
                         placeholder="Write a message..."
                         ref={(el) => this.messageText = el}
                         onKeyDown={this.keyPress}

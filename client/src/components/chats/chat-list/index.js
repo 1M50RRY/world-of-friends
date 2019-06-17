@@ -1,17 +1,13 @@
 import React from 'react';
-import '../../../css/chats.css'
 import SearchChats from './search-chats'
 import ChatPreview from './chat-preview'
 import { Collection, Col } from 'react-materialize'
 
-class ChatList extends React.Component {
-    isChatSelected ( chatId ) {
-        return chatId === this.props.selectedChatId;
-    }
+export default class ChatList extends React.Component {
+    isChatSelected = ( chatId ) => chatId === this.props.selectedChatId;
 
     renderChats () {
         if(this.props.chats)
-        {
             return this.props.chats.map((chat, index) =>
                 chat.friend.name.includes(this.props.query) ? 
                 <ChatPreview
@@ -32,11 +28,10 @@ class ChatList extends React.Component {
                 :
                 null
             );
-        }
     }
 
-    render() {
-        return (
+    render = () =>
+        (
             <Col m={3} style={{ height: '100%', borderRight: '2px solid #E9EBED' }}>
                 <SearchChats onSearch={this.props.onSearch} generateColor={this.props.generateColor} />
                 <div className="сhats-container">
@@ -46,7 +41,4 @@ class ChatList extends React.Component {
                 </div>
             </Col>
         );
-    }
 }
-
-export default ChatList;

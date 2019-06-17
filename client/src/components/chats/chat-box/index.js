@@ -4,20 +4,20 @@ import { Chip, Col } from 'react-materialize'
 export default class ChatBox extends React.Component {
     renderMessages() {
         let prevDate = '';
-        if (this.messages)
-            return this.messages.map(
+        if (this.props.messages)
+            return this.props.messages.map(
                 (message) => 
                     <React.Fragment>
                         {
                             prevDate !== message.date && (prevDate = message.date) && 
-                            <MessagesDate date={message.date} generateColor={this.generateColor} />
+                            <MessagesDate date={message.date} generateColor={this.props.generateColor} />
                         }
                         <Message
                             key={message.id}
                             isMine={message.isMine}
                             messageContent={message.content}
                             messageTime={message.time}
-                            generateColor={this.generateColor}
+                            generateColor={this.props.generateColor}
                         />
                     </React.Fragment>      
             );

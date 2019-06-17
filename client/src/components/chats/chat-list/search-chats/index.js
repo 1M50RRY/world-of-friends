@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../../../css/chats.css'
 
 class SearchChats extends React.Component {
     render() {

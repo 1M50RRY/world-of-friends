@@ -10,6 +10,7 @@ import { Row } from 'react-materialize'
 import { updateChats, selectChat, searchChats, } from '../../redux/actions/chatsActions'
 import { changeTheme, changeName, changeAvatar} from '../../redux/actions/userActions'
 import axios from 'axios'
+import Websocket from 'react-websocket';
 axios.defaults.withCredentials = true;
 
 class ChatContainer extends React.Component {   
@@ -40,21 +41,8 @@ class ChatContainer extends React.Component {
         }
     }
 
-    onChatsUpdate = () => {
-        axios.get("http://localhost:3000/chats", { headers: { "Access-Control-Allow-Origin": "*", } })
-        .then(res => { 
-            //console.log(res.data.chats);
-            this.props.updateChats(res.data.chats);
-        });
-    }
-
-    componentWillMount() {
-        this.refresh = setInterval(() => this.onChatsUpdate(), 500);
-    }
-
-    componentWillUnmount()
-    {
-        clearInterval(this.refresh);
+    onChatsUpdate(data) {
+        this.props.updateChats(JSON.parse(data));
     }
 
     getSelectedChat () {
@@ -105,6 +93,10 @@ class ChatContainer extends React.Component {
     render() {
         return (
             <div className="container" style={this.generateColor('#37474f', 'white', 'white', 'white')}>
+                <Websocket 
+                    url='ws://localhost:40510/'
+                    onMessage={this.onChatsUpdate.bind(this)}
+                />
                 <Header 
                     id={this.props.selectedChatId}
                     name={this.getSelectedChat().friend.name}

@@ -33,13 +33,12 @@ class Container extends React.Component {
         this.checkAuth();
     }
 
-    render() {
-        return (
+    render = () =>
+        (
             <ErrorBoundary>
                 {this.props.user.name === null ? <FormContainer onAuth={this.onAuth} /> : <ChatContainer user={this.props.user} />}
             </ErrorBoundary>
         );
-    }
 }
 
 export default connect(

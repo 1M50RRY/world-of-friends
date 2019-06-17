@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchChats from './search-chats'
+import { SearchChats } from './search-chats'
 import ChatPreview from './chat-preview'
 import { Collection, Col } from 'react-materialize'
 

@@ -9,7 +9,7 @@ var usersRouter = require('./routes/user');
 var chatsRouter = require('./routes/chat');
 const bodyParser = require('body-parser');
 var models = require('./db/models');
-var api = require('../utils/api');
+var api = require('./utils/api');
 var db = require('./db/models/index');
 const Op = db.Sequelize.Op;
 var WebSocketServer = require('ws').Server, wss = new WebSocketServer({ port: 40510 });

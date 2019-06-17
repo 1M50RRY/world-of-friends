@@ -1,7 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import { SwitchElement, FileUploadElement, TextInputElement, ButtonElement } from '../inputs'
-axios.defaults.withCredentials = true;
+import { axiosPost } from '../../../functions/api'
 
 export default class SignUpForm extends React.Component {
     constructor(props){
@@ -15,27 +14,21 @@ export default class SignUpForm extends React.Component {
         };
     }
 
-    onChange = (e) => {
-        if (e.target.name === 'avatar') this.setState({avatar: e.target.files[0]});
-        else this.setState({[e.target.name]: e.target.value});
-    }
+    onChange = (e) => e.target.name === 'avatar' ? this.setState({avatar: e.target.files[0]}) : this.setState({[e.target.name]: e.target.value});
 
     onClick = () => {
         let data = new FormData();
+        this.state.gender === 'on' ? data.append('gender', 'FEMALE') : data.append('gender', 'MALE');
         data.append('avatar', this.state.avatar);
         data.append('name', this.state.name);
-        if (this.state.gender === 'on') data.append('gender', 'FEMALE');
-        else data.append('gender', 'MALE');
         data.append('email', this.state.email);
         data.append('password', this.state.password);
-        axios.post("http://localhost:3000/users/add", data, { headers: { "Access-Control-Allow-Origin": "*", } })
-        .then(res => { 
-            if (res.data.status === 'OK') this.props.onAuth(Object.assign(res.data.user, res.data.userData));
-        });
+        axiosPost("http://localhost:3000/users/add", data)
+        .then(res =>  res.data.status === 'OK' ? this.props.onAuth(Object.assign(res.data.user, res.data.userData)) : null);
     }
 
-    render() {
-        return (
+    render = () =>
+        (
             <div class="section">
                 <div className="row" style={{ textAlign: 'center' }}>
                     <SwitchElement 
@@ -95,5 +88,4 @@ export default class SignUpForm extends React.Component {
                 </div>
             </div>
         );
-    }
 }

@@ -11,9 +11,7 @@ export class SignInForm extends React.Component {
         };
     }
 
-    onChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    }
+    onChange = (e) => this.setState({[e.target.name]: e.target.value});
 
     onClick = () => {
         axiosPost("http://localhost:3000/users/login", this.state)

@@ -2,9 +2,7 @@ import React from 'react';
 import '../css/errorBoundary.css'
 
 export default class ErrorBoundary extends React.Component {
-    state = {
-        hasError: false
-    };
+    state = { hasError: false };
 
     componentDidCatch (error, info) {
         this.setState({
@@ -12,8 +10,8 @@ export default class ErrorBoundary extends React.Component {
         });
     }
 
-    render () {
-        return this.state.hasError ? 
+    render = () => 
+        this.state.hasError ? 
         (
             <div id="notfound">
                 <div class="notfound">
@@ -28,5 +26,4 @@ export default class ErrorBoundary extends React.Component {
         )
         :
         this.props.children;
-    }
 }

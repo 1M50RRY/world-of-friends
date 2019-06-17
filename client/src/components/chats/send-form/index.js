@@ -17,8 +17,8 @@ export class SendForm extends React.Component {
          }
     }
 
-    render () {
-        return (
+    render = () =>
+        (
             <Row>
                 <Col 
                     m={9} 
@@ -51,5 +51,4 @@ export class SendForm extends React.Component {
                 </Col>
             </Row>
         );
-    } 
 }

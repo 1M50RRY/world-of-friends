@@ -1,9 +1,9 @@
-export default function (state = {
+export default (state = {
     name: null, 
     avatar: null,
     email: null,
     theme: false
-    }, action) 
+    }, action) =>
 {
     switch (action.type) {
         case 'CHANGE_NAME': return {...state, name: action.payload };

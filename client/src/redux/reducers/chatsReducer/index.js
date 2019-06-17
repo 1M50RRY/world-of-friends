@@ -1,4 +1,4 @@
-export default function (state = {selectedChatId: null, chats: null, query: ''}, action) {
+export default (state = {selectedChatId: null, chats: null, query: ''}, action) => {
     switch (action.type) {
         case 'SELECT_CHAT': return { ...state, selectedChatId: action.payload };
         case 'UPDATE_CHATS': return { ...state, chats: action.payload };

@@ -1,6 +1,1 @@
-export const switchForm = ( isSignUp ) => {
-    return {
-        type: 'SWITCH_FORM',
-        payload: isSignUp
-    }
-};
+export const switchForm = ( isSignUp ) => ({type: 'SWITCH_FORM', payload: isSignUp});

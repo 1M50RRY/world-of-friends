@@ -28,10 +28,8 @@ class Container extends React.Component {
                 this.onAuth(null)
         );
     }
-
-    componentWillMount() {
-        this.checkAuth();
-    }
+    
+    componentWillMount() { this.checkAuth(); }
 
     render = () =>
         (

@@ -1,19 +1,15 @@
 import React from 'react';
-import '../../css/forms.css'
 import SignUpForm from './signUpForm'
 import { SignInForm } from './signInForm'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { switchForm } from '../../redux/actions/formsActions'
+import '../../css/forms.css'
 
 class FormContainer extends React.Component {
-    onFormSwitch () {
-        const reversedIsSignUp = !this.props.isSignUp;
-        this.props.switchForm(reversedIsSignUp);
-    }
-
-    render () {
-        return (
+    onFormSwitch = () => this.props.switchForm(!this.props.isSignUp);
+    render = () => 
+         (
             <div className='container'>
                 <h1 className='name-logo'>World of Friends</h1>
                 { this.props.isSignUp ? 
@@ -23,17 +19,9 @@ class FormContainer extends React.Component {
                 }
             </div>
         );
-    }
 }
 
-function mapStateToProps (state) {
-    return {
-        isSignUp: state.forms.isSignUp
-    }
-}
-
-function matchDispatchToProps (dispatch) {
-    return bindActionCreators({switchForm: switchForm}, dispatch);
-} 
-
-export default connect(mapStateToProps, matchDispatchToProps)(FormContainer);
+export default connect(
+    (state) => ({isSignUp: state.forms.isSignUp}), 
+    (dispatch) => bindActionCreators({switchForm: switchForm}, dispatch)
+)(FormContainer);

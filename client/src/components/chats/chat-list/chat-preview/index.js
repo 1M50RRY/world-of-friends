@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../../../css/chats.css'
 import { CollectionItem } from 'react-materialize'
 import { MessagePreviewTextContent } from './components'
 
@@ -12,8 +11,8 @@ export default class ChatPreview extends React.Component {
         return messagePreviewColor;
     }
 
-    render() {
-        return (
+    render = () =>
+        (
             <CollectionItem 
                 className="chat-preview-cursor avatar" 
                 style={
@@ -38,5 +37,4 @@ export default class ChatPreview extends React.Component {
                 />
             </CollectionItem>
         );
-    }
 }

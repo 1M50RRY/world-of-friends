@@ -1,30 +1,30 @@
 import React from 'react';
-import '../../../../../css/chats.css'
 import {InterlocutorName} from './interlocutorName'
 import {LastMessagePreview} from './lastMessagePreview'
 import {LastMessageTime} from './lastMessageTime'
 import {SecondaryContent} from './secondaryContent'
 
-export const MessagePreviewTextContent = (props) => {
-    return (
+export const MessagePreviewTextContent = (
+    {isChatSelected, name, generateColor, isMyMessageLast, color, lastMessageText, lastMessageTime, unreadMessages, checked}
+    ) => 
+    (
         <React.Fragment>
-            <InterlocutorName isChatSelected={props.isChatSelected} name={props.name}  generateColor={props.generateColor}/>
+            <InterlocutorName isChatSelected={isChatSelected} name={name}  generateColor={generateColor}/>
             <LastMessagePreview 
-                isMyMessageLast={props.isMyMessageLast} 
-                isChatSelected={props.isChatSelected}
-                color={props.color}
-                lastMessageText={props.lastMessageText}
-                generateColor={props.generateColor}
+                isMyMessageLast={isMyMessageLast} 
+                isChatSelected={isChatSelected}
+                color={color}
+                lastMessageText={lastMessageText}
+                generateColor={generateColor}
             />
-            <LastMessageTime isChatSelected={props.isChatSelected} lastMessageTime={props.lastMessageTime} generateColor={props.generateColor}/>
+            <LastMessageTime isChatSelected={isChatSelected} lastMessageTime={lastMessageTime} generateColor={generateColor}/>
             <SecondaryContent 
-                isChatSelected={props.isChatSelected}
-                isMyMessageLast={props.isMyMessageLast}
-                unreadMessages={props.unreadMessages}
-                checked={props.checked}
-                generateColor={props.generateColor}
+                isChatSelected={isChatSelected}
+                isMyMessageLast={isMyMessageLast}
+                unreadMessages={unreadMessages}
+                checked={checked}
+                generateColor={generateColor}
             />
         </React.Fragment>
         
     );
-}

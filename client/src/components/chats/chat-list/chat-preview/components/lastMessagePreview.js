@@ -1,28 +1,27 @@
 import React from 'react';
-import '../../../../../css/chats.css'
 
-export const LastMessagePreview = (props) => {
+export const LastMessagePreview = ({isMyMessageLast, isChatSelected, generateColor, color, lastMessageText}) => {
     return (
         <p>
             <br />
-            { props.isMyMessageLast && 
+            { isMyMessageLast && 
             <span 
                 className="new-msg-text" 
                 style={
-                    props.isChatSelected ? 
-                        props.generateColor('transparent', 'transparent', 'white', 'white')
+                    isChatSelected ? 
+                        generateColor('transparent', 'transparent', 'white', 'white')
                         :
-                        props.generateColor('transparent', 'transparent', '#eceff1', 'teal')
+                        generateColor('transparent', 'transparent', '#eceff1', 'teal')
                 }
             >
                 You: 
             </span> }
             <span 
-                className={props.isMyMessageLast ? "def-msg-text" : "new-msg-text"} 
-                style={props.color}
+                className={isMyMessageLast ? "def-msg-text" : "new-msg-text"} 
+                style={color}
             >
-                {' ' + props.lastMessageText.slice(0, 22).trim()}
-                {props.lastMessageText.length > 22 && '...'}
+                {' ' + lastMessageText.slice(0, 22).trim()}
+                {lastMessageText.length > 22 && '...'}
             </span>
         </p>
     );

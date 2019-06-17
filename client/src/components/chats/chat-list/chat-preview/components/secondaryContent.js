@@ -1,41 +1,40 @@
 import React from 'react';
-import '../../../../../css/chats.css'
 import { Chip, Icon } from 'react-materialize'
 
-export const SecondaryContent = (props) => {
+export const SecondaryContent = ({isChatSelected, generateColor, isMyMessageLast, unreadMessages, checked}) => {
     return (
         <p className="secondary-content" style={
-                props.isChatSelected ? 
-                    props.generateColor('transparent', 'transparent', 'white', 'white') 
+                isChatSelected ? 
+                    generateColor('transparent', 'transparent', 'white', 'white') 
                     : 
-                    props.generateColor('transparent', 'transparent', '#b0bec5', 'teal')
+                    generateColor('transparent', 'transparent', '#b0bec5', 'teal')
             }
         >
             {
-                !props.isMyMessageLast && 
-                !props.isChatSelected &&
-                props.unreadMessages !== 0 && 
-                <UnreadMessage count={props.unreadMessages} color={props.generateColor('#b0bec5', 'teal', 'white', 'white')} />
+                !isMyMessageLast && 
+                !isChatSelected &&
+                unreadMessages !== 0 && 
+                <UnreadMessage count={unreadMessages} color={generateColor('#b0bec5', 'teal', 'white', 'white')} />
             }
             {
-                props.isMyMessageLast && <CheckMessage isChecked={props.checked} />
+                isMyMessageLast && <CheckMessage isChecked={checked} />
             }
         </p>
     );
 }
 
-const UnreadMessage = (props) => {
+const UnreadMessage = ({color, count}) => {
     return (    
-        <Chip className="msg-props" style={props.color}>
-            <span className="msg-count">{ props.count.toString() }</span>
+        <Chip className="msg-props" style={color}>
+            <span className="msg-count">{ count.toString() }</span>
         </Chip>
     );
 }
 
-const CheckMessage = (props) => {
+const CheckMessage = ({isChecked}) => {
     return (
         <Icon className="msg-props">
-            {props.isChecked ? 'done_all' : 'done'}
+            {isChecked ? 'done_all' : 'done'}
         </Icon>
     );
 }

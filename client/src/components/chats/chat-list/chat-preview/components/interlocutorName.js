@@ -1,19 +1,17 @@
 import React from 'react';
-import '../../../../../css/chats.css'
 
-export const InterlocutorName = (props) => {
-    return (
+export const InterlocutorName = ({isChatSelected, generateColor, name}) => 
+    (
         <span 
             className="title main-text" 
             style={
-                props.isChatSelected ? 
-                    props.generateColor('transparent', 'transparent', 'white', 'white') 
+                isChatSelected ? 
+                    generateColor('transparent', 'transparent', 'white', 'white') 
                     :
-                    props.generateColor('transparent', 'transparent', 'white', 'black') 
+                    generateColor('transparent', 'transparent', 'white', 'black') 
             }
         >
-            {props.name.slice(0, 18).trim()}
-            {props.name.length > 18 && '...'}
+            {name.slice(0, 18).trim()}
+            {name.length > 18 && '...'}
         </span>
     );
-}

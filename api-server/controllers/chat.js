@@ -1,5 +1,6 @@
-let models = require('../db/models');
+var models = require('../db/models');
 var db = require('../db/models/index');
+var api = require('../utils/api');
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
@@ -7,11 +8,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 const Op = db.Sequelize.Op;
 
 exports.getChats = (req, res, next) => {
-    return models.User.findOne({
-        where: {
-            id: req.session.userId
-        }
-    }).then(user => {
+    api.getUser(req).then(user => {
         models.Chat.findAll({
             where: {
                 [Op.or]: [{user1Id: user.id}, {user2Id: user.id}]
@@ -50,11 +47,7 @@ exports.getChats = (req, res, next) => {
 }
 
 exports.readChat = (req, res, next) => {
-    models.User.findOne({
-        where: {
-            id: req.session.userId
-        }
-    }).then(user => {
+    api.getUser(req).then(user => {
         models.Message.update(
             {
                 isRead: true
@@ -73,15 +66,11 @@ exports.readChat = (req, res, next) => {
 
 exports.sendMessage = (req, res, next) => {
     var date = new Date();
-    models.User.findOne({
-        where: {
-            id: req.session.userId
-        }
-    }).then(user => {
+    api.getUser(req).then(user => {
         models.Message.create({
             chatId: req.body.chatId,
             recipentId: req.body.recipentId,
-            date: monthNames[date.getMonth()] + ' ' + date.getDate(),
+            date: api.getDate(),
             time: date.getHours() + ':' + date.getMinutes(),
             isRead: false,
             content: req.body.content
@@ -119,11 +108,7 @@ exports.unblockUser = (req, res, next) => {
 
 exports.findFriend = (req, res, next) => {
     var date = new Date();
-    return models.User.findOne({
-        where: {
-            id: req.session.userId
-        }
-    }).then(user => {
+    api.getUser(req).then(user => {
         models.Country.findOne({
             where: {
                 name: req.body.country

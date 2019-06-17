@@ -7,7 +7,12 @@ var session = require('express-session');
 var countryRouter = require('./routes/country')
 var usersRouter = require('./routes/user');
 var chatsRouter = require('./routes/chat');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+var models = require('./db/models');
+var api = require('../utils/api');
+var db = require('./db/models/index');
+const Op = db.Sequelize.Op;
+var WebSocketServer = require('ws').Server, wss = new WebSocketServer({ port: 40510 });
 var cors = require('cors');
 
 var app = express();
@@ -61,20 +66,11 @@ app.use(function (err, req, res, next) {
 /*
   Chats update with websocket
 */
-var models = require('./db/models');
-var db = require('./db/models/index');
-const Op = db.Sequelize.Op;
-var WebSocketServer = require('ws').Server,
-  wss = new WebSocketServer({ port: 40510 });
 
 wss.on('connection', function (ws, req) {
   setInterval(() => {
     sessionParser(req, {}, function () {
-      models.User.findOne({
-        where: {
-          id: req.session.userId
-        }
-      }).then(user => {
+      api.getUser(req).then(user => {
         models.Chat.findAll({
           where: {
             [Op.or]: [{ user1Id: user.id }, { user2Id: user.id }]
@@ -112,7 +108,6 @@ wss.on('connection', function (ws, req) {
       });
     });
   }, 500);
-
 });
 
 module.exports = app;

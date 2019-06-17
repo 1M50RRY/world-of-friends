@@ -50,14 +50,13 @@ class ChatContainer extends React.Component {
 
     onSearch = ( event ) => this.props.searchChats(event.target.value);
 
-    onMessageSend = ( text ) => {
+    onMessageSend = text => {
         axiosPost("http://localhost:3000/chats/send", 
             {
                 chatId: this.getSelectedChat().id,
                 recipentId: this.getSelectedChat().friend.id,
                 content: text
-            }
-        );
+            });
     }
     
     render = () => 

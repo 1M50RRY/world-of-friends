@@ -1,31 +1,11 @@
 let models = require('../db/models');
+var api = require('../utils/api');
 let bcrypt = require('bcrypt');
 const axios = require('axios');
 
-exports.getUsers = (req, res, next) => {
-    models.User.findAll().then(users => {
-    }).then(users => {
-        models.UserData.findAll().then(usersData => {
-            res.send(
-                {
-                    status: "OK",
-                    users: users,
-                    usersData: usersData
-                }
-            );
-        });
-    });
-}
-
 exports.getUser = (req, res, next) => {
-    console.log("Got session: ", req.session.id);
-    console.log(req.session);
     if (req.session.userId)
-        return models.User.findOne({
-            where: {
-                id: req.session.userId
-            }
-        }).then(user => {
+        api.getUser(req).then(user => {
             models.UserData.findOne({
                 where: {
                     id: user.userDataId
@@ -81,7 +61,7 @@ exports.addUser = (req, res, next) => {
     var hash = bcrypt.hashSync(req.body.password, 10);
     var ip = '104.194.220.62' // For local tests;
     var api_url = 'http://api.ipstack.com/' +  ip + '?access_key=3e90dc099638b5b854dfcab26a2a5058';
-    return axios.get(api_url).then(response => {
+    axios.get(api_url).then(response => {
         models.User.findAll({
             where: {
                 email: req.body.email

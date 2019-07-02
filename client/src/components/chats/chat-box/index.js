@@ -30,10 +30,6 @@ export default class ChatBox extends React.Component {
         this.scrollToBottom();
     }
 
-    componentDidUpdate() {
-        this.scrollToBottom();
-    }
-
     render = () =>
         (
             <Col m={9} >
@@ -55,7 +51,7 @@ const Message = ({isMine, key, generateColor, messageContent, messageTime}) => {
             class={isMine ? "mine messages" : "yours messages"} 
             key={key}
         >
-            <div class="message" style={isMine ? 
+            <div class="message" style={ isMine ? 
                 generateColor('#263238', 'teal', 'white', 'white')
                 :
                 generateColor('#546e7a', '#00acc1', 'white', 'white')

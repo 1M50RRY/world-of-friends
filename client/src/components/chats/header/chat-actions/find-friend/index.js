@@ -51,7 +51,6 @@ export default class FindFriend extends React.Component {
                     icon="flag"
                     style={this.props.generateColor('transparent', 'transparent', 'white', 'black')}
                 />
-                }
                 <Button
                     style={
                         Object.assign({},

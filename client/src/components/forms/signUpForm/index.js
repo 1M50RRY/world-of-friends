@@ -38,13 +38,21 @@ export default class SignUpForm extends React.Component {
                         name="gender"
                         onChange={this.onChange}   
                     />
-                    <TextInputElement m='8' 
+                    <TextInputElement 
+                        m="8"
+                        s="12"
+                        offS="0"
+                        offM="3"
                         icon='face' 
                         label='Your name' 
                         name="name" 
                         onChange={this.onChange}
                     />
-                    <TextInputElement m='8'
+                    <TextInputElement 
+                        m="8"
+                        s="12"
+                        offS="0"
+                        offM="3"
                         icon='email'
                         label='Email'
                         email
@@ -56,19 +64,29 @@ export default class SignUpForm extends React.Component {
                     />
                     <TextInputElement
                         m="8"
-                        icon="lock"
+                        s="12"
+                        offS="0"
+                        offM="3"
+                        icon="lock" 
                         password
                         label="Password"
                         name="password"
                         onChange={this.onChange}
                     />
                     <FileUploadElement
+                        m="6"
+                        s="12"
+                        offS="0"
+                        offM="3"
                         text="Profile picture"
                         name="avatar"
                         onChange={this.onChange}
                     />
                     <ButtonElement
-                        m="8"
+                        m="6"
+                        s="12"
+                        offS="0"
+                        offM="3"
                         node="a"
                         waves="teal"
                         large
@@ -77,13 +95,16 @@ export default class SignUpForm extends React.Component {
                         onClick={this.onClick}
                     />
                     <ButtonElement
-                        m="8"
+                        m="6"
+                        s="12"
+                        offS="0"
+                        offM="3"
                         node="a"
                         waves="teal"
                         large
                         style={{ backgroundColor: '#485167', width: '100%' }}
                         onClick={this.props.onFormSwitch}
-                        text='Already have an account? Sign in'
+                        text='Already have an account?'
                     />
                 </div>
             </div>

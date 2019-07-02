@@ -29,6 +29,9 @@ export class SignInForm extends React.Component {
                 <div className="row" style={{ textAlign: 'center' }}>
                     <TextInputElement
                         m="8"
+                        s="12"
+                        offS="0"
+                        offM="3"
                         icon="email"
                         email
                         validate
@@ -40,6 +43,9 @@ export class SignInForm extends React.Component {
                     />
                     <TextInputElement
                         m="8"
+                        s="12"
+                        offS="0"
+                        offM="3"
                         icon="lock"
                         password
                         label="Password"
@@ -47,7 +53,10 @@ export class SignInForm extends React.Component {
                         onChange={this.onChange}
                     />
                     <ButtonElement
-                        m="8"
+                        m="6"
+                        s="12"
+                        offS="0"
+                        offM="3"
                         node="a"
                         waves="teal"
                         large
@@ -56,13 +65,16 @@ export class SignInForm extends React.Component {
                         onClick={this.onClick}
                     />
                     <ButtonElement
-                        m="8"
+                        m="6"
+                        s="12"
+                        offS="0"
+                        offM="3"
                         node="a"
                         waves="teal"
                         large
                         style={{ backgroundColor: '#485167', width: '100%' }}
                         onClick={this.props.onFormSwitch}
-                        text="Doesn't have an account? Sign up"
+                        text="Doesn't have an account?"
                     />
                 </div>
             </div>

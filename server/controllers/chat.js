@@ -2,7 +2,7 @@ var models = require('../db/models');
 var db = require('../db/models/index');
 var api = require('../utils/api');
 const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+    "July", "August", "September", "October", "November", "December"
 ];
 
 const Op = db.Sequelize.Op;
@@ -11,9 +11,9 @@ exports.getChats = (req, res, next) => {
     api.getUser(req).then(user => {
         models.Chat.findAll({
             where: {
-                [Op.or]: [{user1Id: user.id}, {user2Id: user.id}]
+                [Op.or]: [{ user1Id: user.id }, { user2Id: user.id }]
             },
-            raw : true
+            raw: true
         }).then(async chats => {
             var response = await Promise.all(chats.map(async chat => {
                 chat.friend = await models.UserData.findOne({
@@ -41,7 +41,7 @@ exports.getChats = (req, res, next) => {
                 return chat;
             }));
             response = response.sort(chat => chat.messages[chat.messages.length - 1].id);
-            res.send({status: 'OK', chats: response})
+            res.send({ status: 'OK', chats: response })
         });
     });
 }
@@ -59,7 +59,7 @@ exports.readChat = (req, res, next) => {
                 }
             }
         ).then(messages => {
-            res.send({status: 'OK'});
+            res.send({ status: 'OK' });
         });
     });
 }
@@ -75,7 +75,7 @@ exports.sendMessage = (req, res, next) => {
             isRead: false,
             content: req.body.content
         }).then(message => {
-            res.send({status: 'OK'});
+            res.send({ status: 'OK' });
         });
     });
 }
@@ -86,10 +86,10 @@ exports.blockUser = (req, res, next) => {
             blockedById: req.session.userId
         },
         {
-            where: {id: req.body.chatId}
+            where: { id: req.body.chatId }
         }
     ).then(chat => {
-        res.send({status: 'OK'});
+        res.send({ status: 'OK' });
     });
 }
 
@@ -99,54 +99,50 @@ exports.unblockUser = (req, res, next) => {
             blockedById: null
         },
         {
-            where: {id: req.body.chatId}
+            where: { id: req.body.chatId }
         }
     ).then(chat => {
-        res.send({status: 'OK'});
+        res.send({ status: 'OK' });
     });
 }
 
 exports.findFriend = (req, res, next) => {
     var date = new Date();
-    api.getUser(req).then(user => {
-        models.Country.findOne({
-            where: {
-                name: req.body.country
-            }
-        }).then(country => {
-            models.UserData.findOne({
-                order: db.sequelize.random(),
-                where: {
-                    countryId: country.id,
-                    id:{[db.Sequelize.Op.ne]: user.id}
-                }
-            }).then(recipent => {
-                models.Chat.findAll({
-                    where: {
-                        [Op.or]: [{user1Id: user.id}, {user2Id: recipent.id}],
-                        [Op.or]: [{user1Id: recipent.id}, {user2Id: user.id}]
-                    }
-                }).then(sameChat => {
-                    if (sameChat.length === 0) {
-                        models.Chat.create({
-                            user1Id: user.id,
-                            user2Id: recipent.id,
-                            blockedById: null
-                        }).then(chat => {
-                            models.Message.create({
-                                chatId: chat.id,
-                                recipentId: recipent.id,
-                                date: monthNames[date.getMonth()] + ' ' + date.getDate(),
-                                time: date.getHours() + ':' + date.getMinutes(),
-                                isRead: false,
-                                content: req.body.content
-                            }).then(message => {
-                                res.send({status: 'OK'});
-                            });
-                        });
-                    }
-                });
+    let user = await api.getUser(req);
+    let country = models.Country.findOne({
+        where: {
+            name: req.body.country
+        }
+    });
+    let recipent = models.UserData.findOne({
+        order: db.sequelize.random(),
+        where: {
+            countryId: country.id,
+            id: { [db.Sequelize.Op.ne]: user.id }
+        }
+    });
+    let sameChat = models.Chat.findAll({
+        where: {
+            [Op.or]: [{ user1Id: user.id }, { user2Id: recipent.id }],
+            [Op.or]: [{ user1Id: recipent.id }, { user2Id: user.id }]
+        }
+    });
+    if (sameChat.length === 0) {
+        models.Chat.create({
+            user1Id: user.id,
+            user2Id: recipent.id,
+            blockedById: null
+        }).then(chat => {
+            models.Message.create({
+                chatId: chat.id,
+                recipentId: recipent.id,
+                date: monthNames[date.getMonth()] + ' ' + date.getDate(),
+                time: date.getHours() + ':' + date.getMinutes(),
+                isRead: false,
+                content: req.body.content
+            }).then(message => {
+                res.send({ status: 'OK' });
             });
         });
-    });
+    }
 }
